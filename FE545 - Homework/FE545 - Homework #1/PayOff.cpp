@@ -26,7 +26,3 @@ double PayOffPut::operator()(double Spot) const
 {
     return std::max(Strike - Spot,0.0);
 }
-
-
-
-
