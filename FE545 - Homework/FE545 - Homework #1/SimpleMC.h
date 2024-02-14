@@ -10,7 +10,7 @@
 #define __Payoff_class_with_inheritance__SimpleMC2__
 
 #include <iostream>
-#include "PayOff2.h"
+#include "PayOff.h"
 double SimpleMonteCarlo2(const PayOff& thePayOff, // use PayOff class, strike is hidden inside the Payoff object
                          double Expiry,
                          double Spot,
