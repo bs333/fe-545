@@ -1,13 +1,9 @@
 //
-//  PayOff2.h
+//  PayOff.h
 //  Payoff_class_with_inheritance
-//
-//  Created by cheerzzh on 23/5/14.
-//  Copyright (c) 2014年 Jared Zhou. All rights reserved.
-//
 
-#ifndef __Payoff_class_with_inheritance__PayOff2__
-#define __Payoff_class_with_inheritance__PayOff2__
+#ifndef __Payoff_class_with_inheritance__PayOff__
+#define __Payoff_class_with_inheritance__PayOff__
 
 #include <iostream>
 
@@ -61,6 +57,6 @@ private:
     
 };
 
-#endif /* defined(__Payoff_class_with_inheritance__PayOff2__) */
+#endif /* defined(__Payoff_class_with_inheritance__PayOff__) */
 
 

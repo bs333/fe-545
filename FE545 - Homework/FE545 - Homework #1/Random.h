@@ -1,13 +1,13 @@
 //
-//  Random1.h
+//  Random.h
 //  Payoff_class_with_inheritance
 
-#ifndef __Payoff_class_with_inheritance__Random1__
-#define __Payoff_class_with_inheritance__Random1__
+#ifndef __Payoff_class_with_inheritance__Random__
+#define __Payoff_class_with_inheritance__Random__
 
-//Random1.h
+//Random.h
 
 double GetOneGaussianBySummation();
 double GetOneGaussianByBoxMuller();
 
-#endif /* defined(__Payoff_class_with_inheritance__Random1__) */
+#endif /* defined(__Payoff_class_with_inheritance__Random__) */

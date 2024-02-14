@@ -1,12 +1,8 @@
 //
-//  Random1.cpp
+//  Random.cpp
 //  Payoff_class_with_inheritance
-//
-//  Created by cheerzzh on 7/6/14.
-//  Copyright (c) 2014年 Jared Zhou. All rights reserved.
-//
 
-//Random1.cpp
+//Random.cpp
 
 #include "Random.h"
 #include <cstdlib>
@@ -15,8 +11,6 @@
 #if !defined(_MSC_VER)
 using namespace std;
 #endif
-
-
 
 double GetOneGaussianBySummation()
 {
@@ -29,9 +23,6 @@ double GetOneGaussianBySummation()
     
 	return result;
 }
-
-
-
 
 double GetOneGaussianByBoxMuller()
 {
