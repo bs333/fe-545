@@ -4,6 +4,7 @@
 
 
 #include "SimpleMC.h"
+#include "DDMain.cpp"
 #include "PayOff.h"
 #include "Random.h"
 #include <cmath>
