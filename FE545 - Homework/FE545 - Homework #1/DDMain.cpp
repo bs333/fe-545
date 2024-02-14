@@ -1,6 +1,6 @@
-#include "SimpleMC.h"
-#include "PayOff.h"
 #include "DoubleDigital.h"
+#include "PayOff.h"
+#include "SimpleMC.h"
 #include <iostream>
 
 int main() {
@@ -12,17 +12,20 @@ int main() {
     double r = 0.05;
     unsigned long NumberOfPaths = 200;
 
-    PayOffDoubleDigital doubleDigitalPayOff(LowerLevel, UpperLevel);
-    double doubleDigitalPrice = SimpleMonteCarlo(doubleDigitalPayOff, Spot, Vol, r, NumberOfPaths);
-    std::cout << "The price of the Double Digital option is " << doubleDigitalPrice << std::endl;
+    DoubleDigitalPayOffParameters doubleDigitalParams(LowerLevel, UpperLevel);
+    PayOffDoubleDigital doubleDigitalPayOff(doubleDigitalParams);
 
-    PayOffCall callPayOff(50.0);
-    double callPrice = SimpleMonteCarlo(callPayOff, Spot, Vol, r, NumberOfPaths);
-    std::cout << "The price of the European Call option is " << callPrice << std::endl;
+    BasePayOffParameters callPutParams(50.0);
+    PayOffCall callPayOff(callPutParams);
+    PayOffPut putPayOff(callPutParams);
 
-    PayOffPut putPayOff(50.0);
-    double putPrice = SimpleMonteCarlo(putPayOff, Spot, Vol, r, NumberOfPaths);
-    std::cout << "The price of the European Put option is " << putPrice << std::endl;
+    double priceDoubleDigital = SimpleMonteCarlo(doubleDigitalPayOff, Spot, Vol, r, NumberOfPaths);
+    double priceCall = SimpleMonteCarlo(callPayOff, Spot, Vol, r, NumberOfPaths);
+    double pricePut = SimpleMonteCarlo(putPayOff, Spot, Vol, r, NumberOfPaths);
+
+    std::cout << "Double Digital option price: " << priceDoubleDigital << std::endl;
+    std::cout << "Call option price: " << priceCall << std::endl;
+    std::cout << "Put option price: " << pricePut << std::endl;
 
     return 0;
 }
