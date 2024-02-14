@@ -20,3 +20,19 @@ double PayOffPut::operator()(double Spot) const
 {
     return std::max(Strike - Spot,0.0);
 }
+
+// DoubleDigitalPayOffParameters implementation
+DoubleDigitalPayOffParameters::DoubleDigitalPayOffParameters(double K1, double K2)
+: K1(K1), K2(K2) {}
+
+double DoubleDigitalPayOffParameters::GetLowerStrike() const { return K1; }
+double DoubleDigitalPayOffParameters::GetUpperStrike() const { return K2; }
+
+// PayOffDoubleDigital implementation
+PayOffDoubleDigital::PayOffDoubleDigital(const DoubleDigitalPayOffParameters& Param_)
+: K1(Param_.GetLowerStrike()), K2(Param_.GetUpperStrike()) {}
+
+double PayOffDoubleDigital::operator()(double Spot) const {
+    if (Spot <= K1 || Spot >= K2) return 0;
+    else return 1;
+}
