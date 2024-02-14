@@ -18,7 +18,7 @@ class PayOffDoubleDigital : public PayOff {
 public:
     PayOffDoubleDigital(const DoubleDigitalPayOffParameters& Params);
     virtual ~PayOffDoubleDigital() {};
-    virtual double operator()(const double& S) const override;
+    virtual double operator()(double Spot) const override;
 
 private:
     double K1, K2;
