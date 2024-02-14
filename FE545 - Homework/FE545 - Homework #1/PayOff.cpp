@@ -6,7 +6,7 @@
 //  Copyright (c) 2022 Steve Yang. All rights reserved.
 //
 
-#include "PayOff2.h"
+#include "PayOff.h"
 #include <algorithm> // for max() function
 
 PayOffCall::PayOffCall(BasePayOffParameters& Param_)

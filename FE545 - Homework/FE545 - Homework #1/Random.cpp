@@ -8,7 +8,7 @@
 
 //Random1.cpp
 
-#include "Random1.h"
+#include "Random.h"
 #include <cstdlib>
 #include <cmath>
 

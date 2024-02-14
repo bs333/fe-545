@@ -3,9 +3,9 @@
 //  Payoff_class_with_inheritance
 
 
-#include "SimpleMC2.h"
-#include "PayOff2.h"
-#include "Random1.h"
+#include "SimpleMC.h"
+#include "PayOff.h"
+#include "Random.h"
 #include <cmath>
 
 //the basic math functions should be in
