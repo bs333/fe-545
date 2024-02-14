@@ -1,9 +1,6 @@
 //
-//  PayOff2.cpp
+//  PayOff.cpp
 //  Payoff_class_with_inheritance
-//
-//  Created by cheerzzh on 01/25/2022.
-//  Copyright (c) 2022 Steve Yang. All rights reserved.
 //
 
 #include "PayOff.h"
