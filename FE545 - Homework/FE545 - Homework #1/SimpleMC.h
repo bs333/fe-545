@@ -1,18 +1,13 @@
-//
-//  SimpleMC.h
-//  Payoff_class_with_inheritance
+// SimpleMC.h
+#ifndef __Option_Class__SimpleMonteCarlo__
+#define __Option_Class__SimpleMonteCarlo__
 
-#ifndef __Payoff_class_with_inheritance__SimpleMC__
-#define __Payoff_class_with_inheritance__SimpleMC__
-
-#include <iostream>
 #include "PayOff.h"
 
-double SimpleMonteCarlo(const PayOff& thePayOff, // use PayOff class, strike is hidden inside the Payoff object
-                         double Expiry,
-                         double Spot,
-                         double Vol,
-                         double r,
-                         unsigned long NumberOfPath);
+double SimpleMonteCarlo(const PayOff& ThePayOff,
+                        double Spot,
+                        double Vol,
+                        double r,
+                        unsigned long NumberOfPaths);
 
-#endif /* defined(__Payoff_class_with_inheritance__SimpleMC2__) */
+#endif /* defined(__Option_Class__SimpleMonteCarlo__) */
