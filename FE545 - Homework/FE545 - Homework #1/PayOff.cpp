@@ -6,10 +6,7 @@
 #include "PayOff.h"
 #include <algorithm> // for max() function
 
-PayOffCall::PayOffCall(BasePayOffParameters& Param_)
-{
-    Strike = 0;// Need to change
-}
+PayOffCall::PayOffCall(BasePayOffParameters& Param_) : Strike(Param_.GetStrike()) {}
 
 double PayOffCall::operator()(double Spot) const
 {
@@ -17,10 +14,7 @@ double PayOffCall::operator()(double Spot) const
 
 }
 
-PayOffPut::PayOffPut(BasePayOffParameters& Param_)
-{
-    Strike = 0;// Need to change
-}
+PayOffPut::PayOffPut(BasePayOffParameters& Param_) : Strike(Param_.GetStrike()) {}
 
 double PayOffPut::operator()(double Spot) const
 {
