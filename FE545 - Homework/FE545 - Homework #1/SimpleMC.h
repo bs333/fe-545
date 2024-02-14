@@ -5,6 +5,7 @@
 #include "PayOff.h"
 
 double SimpleMonteCarlo(const PayOff& ThePayOff,
+                        double Expiry,
                         double Spot,
                         double Vol,
                         double r,

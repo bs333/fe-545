@@ -16,8 +16,8 @@ double DoubleDigitalPayOffParameters::GetUpperStrike() const { return K2; }
 PayOffDoubleDigital::PayOffDoubleDigital(const DoubleDigitalPayOffParameters& Param_)
 : K1(Param_.GetLowerStrike()), K2(Param_.GetUpperStrike()) {}
 
-// Implementation of the PayOff operation
-double PayOffDoubleDigital::operator()(double S) const {
-    if (S <= K1 || S >= K2) return 0;
-    else return 1;
-}
+// // Implementation of the PayOff operation
+// double PayOffDoubleDigital::operator()(double S) const {
+//     if (S <= K1 || S >= K2) return 0;
+//     else return 1;
+// }
