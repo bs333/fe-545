@@ -41,5 +41,3 @@ double SimpleMonteCarlo(const PayOff& thePayOff, // use PayOff class, actually t
 
     return mean;
 }
-
-
