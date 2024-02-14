@@ -58,5 +58,3 @@ private:
 };
 
 #endif /* defined(__Payoff_class_with_inheritance__PayOff__) */
-
-
