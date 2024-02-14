@@ -21,15 +21,18 @@ private:
     
 }; 
 
-class BasePayOffParameters //base class
+class BasePayOffParameters
 {
 public:
-    BasePayOffParameters(){};
-    virtual ~BasePayOffParameters(){};
+    BasePayOffParameters(double Strike) : m_Strike(Strike) {}
+    virtual ~BasePayOffParameters() {};
+
+    double GetStrike() const { return m_Strike; }
 
 private:
-    
+    double m_Strike;
 };
+
 
 // class PayOffParameters //derived class
 
