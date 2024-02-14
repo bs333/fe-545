@@ -13,3 +13,15 @@ public:
 private:
     double K1, K2;
 };
+
+class PayOffDoubleDigital : public PayOff {
+public:
+    PayOffDoubleDigital(const DoubleDigitalPayOffParameters& Params);
+    virtual ~PayOffDoubleDigital() {};
+    virtual double operator()(const double& S) const override;
+
+private:
+    double K1, K2;
+};
+
+#endif
