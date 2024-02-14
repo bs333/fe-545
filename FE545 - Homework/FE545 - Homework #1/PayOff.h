@@ -2,8 +2,8 @@
 //  PayOff.h
 //  Payoff_class_with_inheritance
 
-#ifndef __Payoff_class_with_inheritance__PayOff__
-#define __Payoff_class_with_inheritance__PayOff__
+#ifndef PAY_OFF_H // Include guard start
+#define PAY_OFF_H
 
 #include <iostream>
 
@@ -60,26 +60,26 @@ private:
 
 };
 
-// New classes for Double Digital PayOff
-class DoubleDigitalPayOffParameters : public BasePayOffParameters {
-public:
-    DoubleDigitalPayOffParameters(double K1, double K2);
-    virtual ~DoubleDigitalPayOffParameters(){};
-    double GetLowerStrike() const;
-    double GetUpperStrike() const;
+// // New classes for Double Digital PayOff
+// class DoubleDigitalPayOffParameters : public BasePayOffParameters {
+// public:
+//     DoubleDigitalPayOffParameters(double K1, double K2);
+//     virtual ~DoubleDigitalPayOffParameters(){};
+//     double GetLowerStrike() const;
+//     double GetUpperStrike() const;
 
-private:
-    double K1, K2;
-};
+// private:
+//     double K1, K2;
+// };
 
-class PayOffDoubleDigital : public PayOff {
-public:
-    PayOffDoubleDigital(const DoubleDigitalPayOffParameters& Param_);
-    virtual double operator()(double Spot) const;
-    virtual ~PayOffDoubleDigital(){}
+// class PayOffDoubleDigital : public PayOff {
+// public:
+//     PayOffDoubleDigital(const DoubleDigitalPayOffParameters& Param_);
+//     virtual double operator()(double Spot) const;
+//     virtual ~PayOffDoubleDigital(){}
 
-private:
-    double K1, K2;
-};
+// private:
+//     double K1, K2;
+// };
 
 #endif /* defined(__Payoff_class_with_inheritance__PayOff__) */

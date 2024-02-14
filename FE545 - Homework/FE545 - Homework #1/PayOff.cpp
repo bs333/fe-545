@@ -1,9 +1,7 @@
-//
 //  PayOff.cpp
-//  Payoff_class_with_inheritance
-//
 
 #include "PayOff.h"
+#include "DoubleDigital.h"
 #include <algorithm> // for max() function
 
 PayOffCall::PayOffCall(BasePayOffParameters& Param_) : Strike(Param_.GetStrike()) {}

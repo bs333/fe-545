@@ -1,11 +1,12 @@
 // DoubleDigital.h
-#ifndef __PayOffDoubleDigital__
-#define __PayOffDoubleDigital__
+#ifndef DOUBLE_DIGITAL_H // Include guard start
+#define DOUBLE_DIGITAL_H
+
 #include "PayOff.h"
 
 class DoubleDigitalPayOffParameters : public BasePayOffParameters {
 public:
-    DoubleDigitalPayOffParameters(const double& K1, const double& K2);
+    DoubleDigitalPayOffParameters(double K1, double K2);
     virtual ~DoubleDigitalPayOffParameters() {};
     double GetLowerStrike() const;
     double GetUpperStrike() const;

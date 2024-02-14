@@ -1,7 +1,9 @@
+// DoubleDigital.cpp
+
 #include "DoubleDigital.h"
 
 // Constructor for DoubleDigitalPayOffParameters
-DoubleDigitalPayOffParameters::DoubleDigitalPayOffParameters(const double& K1, const double& K2)
+DoubleDigitalPayOffParameters::DoubleDigitalPayOffParameters(double K1, double K2)
 : BasePayOffParameters(), K1(K1), K2(K2) {}
 
 // Destructor for DoubleDigitalPayOffParameters
@@ -21,7 +23,7 @@ PayOffDoubleDigital::PayOffDoubleDigital(const DoubleDigitalPayOffParameters& Pa
 PayOffDoubleDigital::~PayOffDoubleDigital() {}
 
 // Implementation of the PayOff operation
-double PayOffDoubleDigital::operator()(const double& S) const {
+double PayOffDoubleDigital::operator()(double S) const {
     if (S <= K1 || S >= K2) return 0;
     else return 1;
 }
