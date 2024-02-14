@@ -43,19 +43,3 @@ double GetOneGaussianByBoxMuller()
     
 	return result;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
