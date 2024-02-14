@@ -24,6 +24,7 @@ private:
 class BasePayOffParameters
 {
 public:
+    BasePayOffParameters() {};
     BasePayOffParameters(double Strike) : m_Strike(Strike) {}
     virtual ~BasePayOffParameters() {};
 

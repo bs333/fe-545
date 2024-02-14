@@ -23,7 +23,7 @@ double PayOffPut::operator()(double Spot) const
 
 // DoubleDigitalPayOffParameters implementation
 DoubleDigitalPayOffParameters::DoubleDigitalPayOffParameters(double K1, double K2)
-: K1(K1), K2(K2) {}
+: BasePayOffParameters(), K1(K1), K2(K2) {}
 
 double DoubleDigitalPayOffParameters::GetLowerStrike() const { return K1; }
 double DoubleDigitalPayOffParameters::GetUpperStrike() const { return K2; }
