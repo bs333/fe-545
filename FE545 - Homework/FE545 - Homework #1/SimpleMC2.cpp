@@ -1,10 +1,7 @@
 //
-//  SimpleMC2.cpp
+//  SimpleMC.cpp
 //  Payoff_class_with_inheritance
-//
-//  Created by cheerzzh on 7/6/14.
-//  Copyright (c) 2014年 Jared Zhou. All rights reserved.
-//
+
 
 #include "SimpleMC2.h"
 #include "PayOff2.h"
@@ -16,30 +13,32 @@
 using namespace std;
 #endif
 
-double SimpleMonteCarlo2(const PayOff& thePayOff, // use PayOff class, actually two subclasses, each for call and put
+double SimpleMonteCarlo(const PayOff& thePayOff, // use PayOff class, actually two subclasses, each for call and put
                          double Expiry,
                          double Spot,
                          double Vol,
                          double r,
                          unsigned long NumberOfPath)
 {
-    double variance = Vol*Vol*Expiry;
-    double rootVariacne = sqrt(variance);
-    double itoCorrection = -0.5*variance;
+    double variance = Vol * Vol * Expiry;
+    double rootVariance = sqrt(variance);
+    double itoCorrection = -0.5 * variance;
     
-    double movedSpot = Spot * exp(r*Expiry + itoCorrection);
+    double movedSpot = Spot * exp(r *Expiry + itoCorrection);
     double thisSpot;
     double runningSum = 0;
     
-    for(unsigned long i =0; i<NumberOfPath;i++)
+    for(unsigned long i = 0; i < NumberOfPath; i++)
     {
         double thisGaussian = GetOneGaussianByBoxMuller();
-        thisSpot = movedSpot * exp(rootVariacne*thisGaussian);
+        thisSpot = movedSpot * exp(rootVariance * thisGaussian);
         double thisPayoff = thePayOff(thisSpot);
         runningSum += thisPayoff;
     }
+
     double mean = runningSum / NumberOfPath;
-    mean *= exp(-r*Expiry);
+    mean *= exp(-r * Expiry);
+
     return mean;
 }
 
