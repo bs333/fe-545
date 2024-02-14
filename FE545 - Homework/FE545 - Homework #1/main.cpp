@@ -22,6 +22,7 @@ int main(int argc, const char * argv[]) {
     unsigned long NumberOfPath = 100;
     
     // Create PayOffParameter object
+    BasePayOffParameters Param(Strike);
     
     // Create Payoff objects
     PayOffCall callPayOff(Param); //PayOff object
