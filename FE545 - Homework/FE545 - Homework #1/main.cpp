@@ -28,21 +28,21 @@ int main(int argc, const char * argv[]) {
     PayOffCall callPayOff(Param); //PayOff object
     PayOffPut putPayOff(Param);
 
-    double resultCall = SimpleMonteCarlo(callPayOff,
-                                          Expiry,
-                                          Spot,
-                                          Vol,
-                                          r,
-                                          NumberOfPath);
+    // double resultCall = SimpleMonteCarlo(callPayOff,
+    //                                       Expiry,
+    //                                       Spot,
+    //                                       Vol,
+    //                                       r,
+    //                                       NumberOfPath);
     
-    double resultput = SimpleMonteCarlo(putPayOff,
-                                         Expiry,
-                                         Spot,
-                                         Vol,
-                                         r,
-                                         NumberOfPath);
+    // double resultput = SimpleMonteCarlo(putPayOff,
+    //                                      Expiry,
+    //                                      Spot,
+    //                                      Vol,
+    //                                      r,
+    //                                      NumberOfPath);
 
-    cout <<"\nThe prices are "<< resultCall<<" for the call and \n"<<resultput<<" for the put\n";
+    // cout <<"\nThe prices are "<< resultCall<<" for the call and \n"<<resultput<<" for the put\n";
 
     return 0;
 }
