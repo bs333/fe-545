@@ -6,9 +6,6 @@
 DoubleDigitalPayOffParameters::DoubleDigitalPayOffParameters(double K1, double K2)
 : BasePayOffParameters(), K1(K1), K2(K2) {}
 
-// Destructor for DoubleDigitalPayOffParameters
-DoubleDigitalPayOffParameters::~DoubleDigitalPayOffParameters() {}
-
 // Getter for Lower Strike
 double DoubleDigitalPayOffParameters::GetLowerStrike() const { return K1; }
 
@@ -18,9 +15,6 @@ double DoubleDigitalPayOffParameters::GetUpperStrike() const { return K2; }
 // Constructor for PayOffDoubleDigital
 PayOffDoubleDigital::PayOffDoubleDigital(const DoubleDigitalPayOffParameters& Param_)
 : K1(Param_.GetLowerStrike()), K2(Param_.GetUpperStrike()) {}
-
-// Destructor for PayOffDoubleDigital
-PayOffDoubleDigital::~PayOffDoubleDigital() {}
 
 // Implementation of the PayOff operation
 double PayOffDoubleDigital::operator()(double S) const {
