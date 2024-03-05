@@ -1,18 +1,13 @@
-<Vanilla1.h>
+// SimpleMCMain.cpp
 
-#ifndef VANILLA_1_H
-#define VANILLA_1_H
+/*
+requires
+	SimpleMC.cpp
+	PayOff1.cpp
+	Random1.cpp
+*/
 
-#include <PayOff2.h>
-
-class VanillaOption
+int main()
 {
-	public:
-		VanillaOption(const PayOff& ThePayOff_, double Expiry_);
-		double GetExpiry() const;
-		double OptionPayOff(double Spot) const;
-		
-	private:
-		double Expiry;
-		PayOff& ThePayOff;
-};
+	
+}

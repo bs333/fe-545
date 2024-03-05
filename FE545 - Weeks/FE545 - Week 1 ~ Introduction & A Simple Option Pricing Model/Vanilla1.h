@@ -14,6 +14,6 @@ class VanillaOption
 		
 	private:
 		double Expiry;
-		PayOff& ThePayOff;
+		PayOff& ThePayOff;		
 };
 #endif

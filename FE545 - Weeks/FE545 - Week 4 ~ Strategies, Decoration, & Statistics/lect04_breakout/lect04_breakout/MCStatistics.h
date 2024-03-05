@@ -50,17 +50,17 @@ private:
     unsigned long PathsDone;
 };
 
-class StatisticsVariance:public StatisticsMC
-{
-public:
-    StatisticsVariance();
-    virtual void DumpOneResult(double result);
-    virtual std::vector<std::vector<double>> GetResultsSoFar()const;
-    virtual StatisticsMC* clone() const;
+// class StatisticsVariance:public StatisticsMC
+// {
+// public:
+//     StatisticsVariance();
+//     virtual void DumpOneResult(double result);
+//     virtual std::vector<std::vector<double>> GetResultsSoFar()const;
+//     virtual StatisticsMC* clone() const;
     
-private:
-    double SquaredSum;
-    unsigned long PathsDone;
-};
+// private:
+//     double SquaredSum;
+//     unsigned long PathsDone;
+// };
 
 #endif /* defined(__ch5_statistics_gatherer__MCStatisitcs__) */

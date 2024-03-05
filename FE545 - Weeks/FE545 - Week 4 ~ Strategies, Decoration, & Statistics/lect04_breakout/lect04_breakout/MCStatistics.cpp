@@ -38,35 +38,35 @@ StatisticsMC* StatisticsMean::clone()const
     return new StatisticsMean(*this);
 }
 
-// Second moment of the sample
-StatisticsVariance::StatisticsVariance(): SquaredSum(0.0),PathsDone(0)
-{
+// // Second moment of the sample
+// StatisticsVariance::StatisticsVariance(): SquaredSum(0.0),PathsDone(0)
+// {
     
-}
+// }
 
-// collect one result from one path
-// called every path
-void StatisticsVariance::DumpOneResult(double result)
-{
-    PathsDone++;
-    //TODO
-}
+// // collect one result from one path
+// // called every path
+// void StatisticsVariance::DumpOneResult(double result)
+// {
+//     PathsDone++;
+//     //TODO
+// }
 
-// called only once per simulation
-vector<vector<double>> StatisticsVariance::GetResultsSoFar()const
-{
-    vector<vector<double>> Results(1);
+// // called only once per simulation
+// vector<vector<double>> StatisticsVariance::GetResultsSoFar()const
+// {
+//     vector<vector<double>> Results(1);
     
-    Results[0].resize(1); // first vector length = 1
-    Results[0][0]=SquaredSum/PathsDone; // store mean
+//     Results[0].resize(1); // first vector length = 1
+//     Results[0][0]=SquaredSum/PathsDone; // store mean
 
-    return Results;
-}
+//     return Results;
+// }
 
-StatisticsMC* StatisticsVariance::clone()const
-{
-    return new StatisticsVariance(*this);
-}
+// StatisticsMC* StatisticsVariance::clone()const
+// {
+//     return new StatisticsVariance(*this);
+// }
 
 
 
