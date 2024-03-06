@@ -16,4 +16,7 @@ double GetOneGaussianByBoxMuller()
         sizeSquared = x * x + y * y;
     } while (sizeSquared >= 1.0 || sizeSquared == 0.0);
     
-}
+    result = x * sqrt(-2 * log(sizeSquared) / sizeSquared);
+
+    return result;
+};
