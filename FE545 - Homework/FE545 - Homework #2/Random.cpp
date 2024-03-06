@@ -20,3 +20,12 @@ double GetOneGaussianByBoxMuller()
 
     return result;
 };
+
+void GetGBMSpotPricePath(std::vector<double>& spotPrices,
+                         const double& r,
+                         const double& v,
+                         const double& T,
+                         unsigned long NumberOfSteps)
+{
+
+}
