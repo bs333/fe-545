@@ -27,5 +27,13 @@ void GetGBMSpotPricePath(std::vector<double>& spotPrices,
                          const double& T,
                          unsigned long NumberOfSteps)
 {
+    double deltaT = T / NumberOfSteps;
+    double drift = exp((r - 0.5 * v * v) * deltaT);
+    double vol = sqrt(v * v * deltaT);
 
+    for (unsigned long i = 1; i < NumberOfSteps; ++i)
+    {
+        double thisGaussian = GetOneGaussianByBoxMuller();
+        spotPrices[i] = spotPrices[i - 1] * drift * exp(vol * thisGaussian);
+    }
 }
