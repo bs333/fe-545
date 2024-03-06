@@ -26,19 +26,23 @@ double GetOneGaussianByBoxMuller()
     return result;
 };
 
+// Generates a path for the spot price of an asset using Geometric Brownian Motion (GBM).
 void GetGBMSpotPricePath(std::vector<double>& spotPrices,
                          const double& r,
                          const double& v,
                          const double& T,
                          unsigned long NumberOfSteps)
 {
-    double deltaT = T / NumberOfSteps;
-    double drift = exp((r - 0.5 * v * v) * deltaT);
-    double vol = sqrt(v * v * deltaT);
+    double deltaT = T / NumberOfSteps; // Time increment
+    double drift = exp((r - 0.5 * v * v) * deltaT); // Drift component for each step
+    double vol = sqrt(v * v * deltaT); // Volatility component for each step
 
     for (unsigned long i = 1; i < NumberOfSteps; ++i)
     {
+        // Generate a random Gaussian value
         double thisGaussian = GetOneGaussianByBoxMuller();
+
+        // Calculate the spot price at the next step using the GBM formula
         spotPrices[i] = spotPrices[i - 1] * drift * exp(vol * thisGaussian);
     }
-}
+};
