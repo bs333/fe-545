@@ -22,4 +22,9 @@ class PayOffCall : public PayOff
         double K; // Strike price
 };
 
+class PayOffPut : public PayOff
+{
+    
+}
+
 #endif
