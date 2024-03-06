@@ -18,6 +18,8 @@ class PayOffCall : public PayOff
         virtual ~PayOffCall() {}
         virtual double operator()(const std::vector<double>& S) const override;
 
-}
+    private:
+        double K; // Strike price
+};
 
 #endif
