@@ -24,7 +24,10 @@ class PayOffCall : public PayOff
 
 class PayOffPut : public PayOff
 {
-    
+    public:
+        PayOffPut(const double& K_);
+        virtual ~PayOffPut() {}
+        virtual double operator()(const std::vector<double>& S) const override;
 }
 
 #endif
