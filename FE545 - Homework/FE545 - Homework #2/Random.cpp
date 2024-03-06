@@ -4,5 +4,7 @@
 
 double GetOneGaussianByBoxMuller()
 {
+    double x, y;
 
+    double sizeSquared, result;
 }
