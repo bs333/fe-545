@@ -2,6 +2,7 @@
 #include <cstdlib> // static casting
 #include <cmath> // exp, log, sqrt
 
+// Generate a random Gaussian number using the Box-Muller transform.
 double GetOneGaussianByBoxMuller()
 {
     double x, y;
@@ -10,12 +11,16 @@ double GetOneGaussianByBoxMuller()
 
     do
     {
+        // Generate two uniform random numbers in the range (-1, 1).
         x = 2.0 * rand() / static_cast<double>(RAND_MAX) - 1;
         y = 2.0 * rand() / static_cast<double>(RAND_MAX) - 1;
 
         sizeSquared = x * x + y * y;
+
+    // Continue until a point within the unit circle is found.
     } while (sizeSquared >= 1.0 || sizeSquared == 0.0);
     
+    // Apply Box-Muller formula to produce a normally distributed value.
     result = x * sqrt(-2 * log(sizeSquared) / sizeSquared);
 
     return result;
