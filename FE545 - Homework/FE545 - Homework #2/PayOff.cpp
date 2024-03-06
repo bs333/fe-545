@@ -1,5 +1,6 @@
 #include "PayOff.h"
-#include <cmath> // log, exp, sqrt
+#include <cmath> // For std::exp
+#include <numeric> // For std::accumulate
 
 PayOffCall::PayOffCall(const double& K_) : K(K_) {}
 
