@@ -11,4 +11,13 @@ class PayOff
         virtual double operator()(const std::vector<double>& S) const = 0;
 };
 
+class PayOffCall : public PayOff
+{
+    public:
+        PayOffCall(const double& K_);
+        virtual ~PayOffCall() {}
+        virtual double operator()(const std::vector<double>& S) const override;
+
+}
+
 #endif
