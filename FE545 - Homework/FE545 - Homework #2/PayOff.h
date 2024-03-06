@@ -46,15 +46,28 @@ class PayOffCall : public PayOff
         double K; // Strike price of the option
 };
 
+/* PayOffPut: Derived class to calculate the payoff of a put option. */
 class PayOffPut : public PayOff
 {
     public:
+        /* Constructor to initialize the strike price of the put option.
+        
+        Param K_: The strike price. */
         PayOffPut(const double& K_);
+
+        /* Destructor. */
         virtual ~PayOffPut() {}
+
+        /* Calculates the payoff of the put option based on spot price(s).
+
+        Overrides the pure virtual function of the base class.
+
+        Param S: The spot price(s) of the underlying asset.
+        Returns: The calculated call option payoff. */        
         virtual double operator()(const std::vector<double>& S) const override;
 
     private:
-        double K;
+        double K; // Strike price of the option
 }
 
 #endif
