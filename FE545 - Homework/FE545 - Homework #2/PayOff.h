@@ -28,6 +28,9 @@ class PayOffPut : public PayOff
         PayOffPut(const double& K_);
         virtual ~PayOffPut() {}
         virtual double operator()(const std::vector<double>& S) const override;
+
+    private:
+        double K;
 }
 
 #endif
