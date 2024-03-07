@@ -23,11 +23,11 @@ double SimpleMonteCarlo3(const AsianOption& TheOption,
                          unsigned long NumberOfPaths,
                          unsigned long NumberOfSteps) 
 {
-    double expiry = 1.0;
+    double expiry = 1.0; // Fixed expiry of 1 year for the option.
 
-    double variance = Vol * Vol * expiry;
-    double rootVariance = sqrt(variance);
-    double itoCorrection = -0.5 * variance;
+    double variance = Vol * Vol * expiry; // Total variance over the option's life.
+    double rootVariance = sqrt(variance); // Standard deviation of returns.
+    double itoCorrection = -0.5 * variance; // Correction term for drift due to Ito's lemma.
 
     double movedSpot = Spot * exp(r * expiry + itoCorrection);
     double thisSpot;
