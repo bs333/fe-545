@@ -2,6 +2,20 @@
 #include "Random.h"
 #include <vector>
 
+/* SimpleMonteCarlo3 function implementation.
+
+   Performs a Monte Carlo simulation to estimate the price of an Asian option.
+
+   Parameters:
+   - TheOption: A reference to an AsianOption object, which specifies the type of option and how its payoff is calculated.
+   - Spot: The initial spot price of the underlying asset.
+   - Vol: The volatility of the underlying asset, indicating the standard deviation of its returns.
+   - r: The risk-free interest rate, used for discounting the payoff to present value.
+   - NumberOfPaths: The number of paths to simulate in the Monte Carlo method.
+   - NumberOfSteps: The number of steps to use in each path for simulating the underlying asset's price.
+
+   Returns:
+   - The estimated price of the option as a double. */
 double SimpleMonteCarlo3(const AsianOption& TheOption,
                          double Spot,
                          double Vol,
