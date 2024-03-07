@@ -45,8 +45,8 @@ double SimpleMonteCarlo3(const AsianOption& TheOption,
         runningSum += thisPayoff;
     }
 
-    double mean = runningSum / NumberOfPaths;
-    mean *= exp(-r * expiry);
+    double mean = runningSum / NumberOfPaths; // Calculate the mean payoff.
+    mean *= exp(-r * expiry); // Discount the mean payoff to present value.
 
-    return mean;
+    return mean; // Return the estimated option price.
 }
