@@ -22,4 +22,8 @@ int main()
     double callPrice = SimpleMonteCarlo3(callOption, Spot, Vol, r, NumberOfPaths, NumberOfSteps);
     double putPrice = SimpleMonteCarlo3(putOption, Spot, Vol, r, NumberOfPaths, NumberOfSteps);
 
+    std::cout << "The price of the Asian geometric call option is " << callPrice << std::endl;
+    std::cout << "The price of the Asian geometric put option is " << putPrice << std::endl;
+
+    return 0;
 }
