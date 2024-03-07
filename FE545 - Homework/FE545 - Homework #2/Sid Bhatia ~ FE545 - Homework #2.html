@@ -7896,6 +7896,196 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="PayOff.cpp"><em>PayOff.cpp</em><a class="anchor-link" href="#PayOff.cpp">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// PayOff.cpp</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"PayOff.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span><span class="c1"> // For std::exp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;numeric&gt;</span><span class="c1"> // For std::accumulate</span>
+
+<span class="cm">/* Constructor for PayOffCall, initializing the strike price (K). */</span>
+<span class="n">PayOffCall</span><span class="o">::</span><span class="n">PayOffCall</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="o">&amp;</span><span class="w"> </span><span class="n">K_</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">K</span><span class="p">(</span><span class="n">K_</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="cm">/* Calculates the payoff for a call option.</span>
+
+<span class="cm">   The payoff is the maximum of zero or the difference between the</span>
+<span class="cm">   average spot price and the strike price.</span>
+
+<span class="cm">   Param S: Vector of spot prices.</span>
+<span class="cm">   Returns: Calculated payoff for the call option. */</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">PayOffCall</span><span class="o">::</span><span class="k">operator</span><span class="p">()(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">average</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exp</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">accumulate</span><span class="p">(</span><span class="n">S</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">                            </span><span class="p">[](</span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">log</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">average</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// Max between 0 and (average spot price - K)</span>
+<span class="p">}</span>
+
+<span class="cm">/* Constructor for PayOffPut, initializing the strike price (K). */</span>
+<span class="n">PayOffPut</span><span class="o">::</span><span class="n">PayOffPut</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="o">&amp;</span><span class="w"> </span><span class="n">K_</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">K</span><span class="p">(</span><span class="n">K_</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="cm">/* Calculates the payoff for a put option.</span>
+
+<span class="cm">   The payoff is the maximum of zero or the difference between the</span>
+<span class="cm">   strike price and the average spot price.</span>
+
+<span class="cm">   Param S: Vector of spot prices.</span>
+<span class="cm">   Returns: Calculated payoff for the put option. */</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">PayOffPut</span><span class="o">::</span><span class="k">operator</span><span class="p">()(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">average</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exp</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">accumulate</span><span class="p">(</span><span class="n">S</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">                            </span><span class="p">[](</span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">log</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">average</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// Max between 0 and (K - average spot price)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="AsianOption.h"><em>AsianOption.h</em><a class="anchor-link" href="#AsianOption.h">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// AsianOption.h</span>
+
+<span class="cp">#ifndef __Asian_Option__</span>
+<span class="cp">#define __Asian_Option__</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"PayOff.h"</span>
+
+<span class="cm">/* AsianOption: Abstract base class for Asian options.</span>
+
+<span class="cm">   It provides a common interface for different types of Asian options,</span>
+<span class="cm">   encapsulating the behavior through the PayOff class for calculating payoffs. */</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AsianOption</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="o">:</span>
+<span class="w">        </span><span class="cm">/* Constructor that initializes the PayOff object for the option.</span>
+
+<span class="cm">        Param _pay_off: Pointer to a PayOff object, which encapsulates the payoff calculation logic. */</span>
+<span class="w">        </span><span class="n">AsianOption</span><span class="p">(</span><span class="n">PayOff</span><span class="o">*</span><span class="w"> </span><span class="n">_pay_off</span><span class="p">);</span>
+
+<span class="w">        </span><span class="cm">/* Virtual destructor ensures derived class destructors are called correctly. */</span>
+<span class="w">        </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">AsianOption</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">        </span><span class="cm">/* Pure virtual function for calculating the option payoff.</span>
+
+<span class="cm">        This function must be implemented by derived classes to specify how the payoff is calculated.</span>
+
+<span class="cm">        Param spot_prices: A vector of double values representing spot prices of the underlying asset.</span>
+<span class="cm">        Returns: The calculated option payoff as a double. */</span>
+<span class="w">        </span><span class="k">virtual</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">OptionPayOff</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">spot_prices</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">protected</span><span class="o">:</span>
+<span class="w">        </span><span class="n">PayOff</span><span class="o">*</span><span class="w"> </span><span class="n">pay_off</span><span class="p">;</span><span class="w"> </span><span class="c1">// Pay-off class (in this instance call or put), used to calculate the option payoff.</span>
+<span class="p">};</span>
+
+<span class="cm">/* AsianOptionGeometric: Derived class from AsianOption to implement payoff calculation</span>
+<span class="cm">   for geometric Asian options. */</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AsianOptionGeometric</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AsianOption</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="o">:</span>
+<span class="w">        </span><span class="cm">/* Constructor that initializes the PayOff object for the geometric Asian option.</span>
+<span class="cm">        </span>
+<span class="cm">        Param _pay_off: Pointer to a PayOff object, encapsulating the payoff calculation logic. */</span>
+<span class="w">        </span><span class="n">AsianOptionGeometric</span><span class="p">(</span><span class="n">PayOff</span><span class="o">*</span><span class="w"> </span><span class="n">_pay_off</span><span class="p">);</span>
+
+<span class="w">        </span><span class="cm">/* Destructor. */</span>
+<span class="w">        </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">AsianOptionGeometric</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">        </span><span class="cm">/* Overridden function to calculate the payoff for a geometric Asian option.</span>
+<span class="cm">        </span>
+<span class="cm">        Utilizes the geometric mean of spot prices for calculation.</span>
+
+<span class="cm">        Param spot_prices: A vector of double values representing spot prices of the underlying asset.</span>
+<span class="cm">        Returns: The calculated option payoff as a double. */</span>
+<span class="w">        </span><span class="k">virtual</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">OptionPayOff</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">spot_prices</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="AsianOption.cpp"><em>AsianOption.cpp</em><a class="anchor-link" href="#AsianOption.cpp">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// AsianOption.cpp</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"AsianOption.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;numeric&gt;</span><span class="c1"> // For std::accumulate</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span><span class="c1">   // For std::exp and std::log</span>
+
+<span class="cm">/* Constructor for the AsianOption class. Initializes the pay_off object.</span>
+
+<span class="cm">   Param _pay_off: Pointer to a PayOff object which will be used to calculate payoffs. */</span>
+<span class="n">AsianOption</span><span class="o">::</span><span class="n">AsianOption</span><span class="p">(</span><span class="n">PayOff</span><span class="o">*</span><span class="w"> </span><span class="n">_pay_off</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">pay_off</span><span class="p">(</span><span class="n">_pay_off</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="cm">/* Constructor for the AsianOptionGeometric class. Calls the base class constructor to initialize pay_off.</span>
+
+<span class="cm">   Param _pay_off: Pointer to a PayOff object for payoff calculation logic. */</span>
+<span class="n">AsianOptionGeometric</span><span class="o">::</span><span class="n">AsianOptionGeometric</span><span class="p">(</span><span class="n">PayOff</span><span class="o">*</span><span class="w"> </span><span class="n">_pay_off</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">AsianOption</span><span class="p">(</span><span class="n">_pay_off</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="cm">/* Calculates the option payoff for a geometric Asian option.</span>
+
+<span class="cm">   This method overrides the pure virtual function in the base class.</span>
+
+<span class="cm">   It computes the payoff using the geometric mean of spot prices.</span>
+
+<span class="cm">   Param spot_prices: A vector of double values representing the sampled spot prices of the underlying asset.</span>
+<span class="cm">   Returns: The calculated option payoff as a double value. */</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">AsianOptionGeometric</span><span class="o">::</span><span class="n">OptionPayOff</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">spot_prices</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">pay_off</span><span class="p">)(</span><span class="n">spot_prices</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>
