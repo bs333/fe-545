@@ -4,6 +4,7 @@
 #define __PAY_OFF__
 
 #include <algorithm> // For std::max, used in payoff calculations.
+#include <vector>
 
 /* PayOff: Abstract base class for option payoff calculations.
 
