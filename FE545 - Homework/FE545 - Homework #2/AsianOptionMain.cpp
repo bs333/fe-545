@@ -9,10 +9,15 @@ int main()
     double Spot = 50;
     double Vol = 0.30;
     double r = 0.05;
-    
+
     unsigned long NumberOfPaths = 1000;
     unsigned long NumberOfSteps = 250;
 
+    PayOffCall callPayOff(Strike);
+    PayOffPut putPayOff(Strike);
+
+    AsianOptionGeometric callOption(&callPayOff);
+    AsianOptionGeometric putOption(&putPayOff);
 
 
 }
