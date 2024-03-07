@@ -19,5 +19,7 @@ int main()
     AsianOptionGeometric callOption(&callPayOff);
     AsianOptionGeometric putOption(&putPayOff);
 
+    double callPrice = SimpleMonteCarlo3(callOption, Spot, Vol, r, NumberOfPaths, NumberOfSteps);
+    double putPrice = SimpleMonteCarlo3(putOption, Spot, Vol, r, NumberOfPaths, NumberOfSteps);
 
 }
