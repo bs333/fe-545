@@ -9,10 +9,10 @@
 double GetOneGaussianByBoxMuller();
 
 // Generates a Geometric Brownian Motion spot price path.
-void GetGBMSpotPricePath(std::vector<double>& spotPrices,
-                         const double& r,
-                         const double& v,
-                         const double& T,
-                         unsigned long NumberOfSteps);
+void GetGBMSpotPricePath(std::vector<double>& spotPrices, 
+                        const double& r, 
+                        const double& v, 
+                        const double& T, 
+                        unsigned long NumberOfSteps);
 
 #endif /* defined(__Option_Class__Random__) */
