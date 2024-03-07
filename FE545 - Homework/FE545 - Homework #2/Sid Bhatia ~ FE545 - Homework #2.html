@@ -8086,6 +8086,260 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="SimpleMC.h"><em>SimpleMC.h</em><a class="anchor-link" href="#SimpleMC.h">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// SimpleMC.h</span>
+
+<span class="cp">#ifndef __Option_Class__SimpleMonteCarlo__</span>
+<span class="cp">#define __Option_Class__SimpleMonteCarlo__</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"AsianOption.h"</span>
+
+<span class="cm">/* SimpleMonteCarlo3:</span>
+<span class="cm">   This function performs the Monte Carlo simulation to price an Asian option.</span>
+
+<span class="cm">   Parameters:</span>
+<span class="cm">   - TheOption: A reference to an AsianOption object. This object encapsulates the</span>
+<span class="cm">     option type (call or put) and the payoff calculation method. The Monte Carlo</span>
+<span class="cm">     simulation will use this information to compute the option price.</span>
+<span class="cm">   - Spot: The initial spot price of the underlying asset.</span>
+<span class="cm">   - Vol: The volatility of the underlying asset. This is a measure of the asset's</span>
+<span class="cm">     price variation and is a crucial input for the simulation.</span>
+<span class="cm">   - r: The risk-free interest rate. This rate is used to discount the option payoff</span>
+<span class="cm">     back to the present value.</span>
+<span class="cm">   - NumberOfPaths: The number of simulation paths. This parameter determines how many</span>
+<span class="cm">     times the underlying asset price path will be simulated. A higher number of paths</span>
+<span class="cm">     can increase the accuracy of the simulation but also increases computational time.</span>
+<span class="cm">   - NumberOfSteps: The number of steps in each simulation path. This determines how many</span>
+<span class="cm">     times the asset price will be sampled in each path, which is relevant for path-dependent</span>
+<span class="cm">     options like Asian options.</span>
+
+<span class="cm">   Returns:</span>
+<span class="cm">   - The estimated price of the Asian option as a double.</span>
+<span class="cm">*/</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">SimpleMonteCarlo3</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">AsianOption</span><span class="o">&amp;</span><span class="w"> </span><span class="n">TheOption</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">double</span><span class="w"> </span><span class="n">Spot</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">double</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">NumberOfPaths</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">NumberOfSteps</span><span class="p">);</span>
+
+<span class="cp">#endif </span><span class="cm">/* defined(__Option_Class__SimpleMonteCarlo__) */</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">"SimpleMC.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"Random.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span><span class="c1"> // sqrt, exp</span>
+
+<span class="cm">/* SimpleMonteCarlo3 function implementation.</span>
+
+<span class="cm">   Performs a Monte Carlo simulation to estimate the price of an Asian option.</span>
+
+<span class="cm">   Parameters:</span>
+<span class="cm">   - TheOption: A reference to an AsianOption object, which specifies the type of option and how its payoff is calculated.</span>
+<span class="cm">   - Spot: The initial spot price of the underlying asset.</span>
+<span class="cm">   - Vol: The volatility of the underlying asset, indicating the standard deviation of its returns.</span>
+<span class="cm">   - r: The risk-free interest rate, used for discounting the payoff to present value.</span>
+<span class="cm">   - NumberOfPaths: The number of paths to simulate in the Monte Carlo method.</span>
+<span class="cm">   - NumberOfSteps: The number of steps to use in each path for simulating the underlying asset's price.</span>
+
+<span class="cm">   Returns:</span>
+<span class="cm">   - The estimated price of the option as a double. */</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">SimpleMonteCarlo3</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">AsianOption</span><span class="o">&amp;</span><span class="w"> </span><span class="n">TheOption</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">double</span><span class="w"> </span><span class="n">Spot</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">double</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">NumberOfPaths</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">NumberOfSteps</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">expiry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Fixed expiry of 1 year for the option.</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">variance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vol</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Vol</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">expiry</span><span class="p">;</span><span class="w"> </span><span class="c1">// Total variance over the option's life.</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">rootVariance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span><span class="p">);</span><span class="w"> </span><span class="c1">// Standard deviation of returns.</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">itoCorrection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">variance</span><span class="p">;</span><span class="w"> </span><span class="c1">// Correction term for drift due to Ito's lemma.</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">movedSpot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Spot</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">expiry</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">itoCorrection</span><span class="p">);</span><span class="w"> </span><span class="c1">// Adjust initial spot price for drift.</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">runningSum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Accumulator for payoffs across all paths.</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NumberOfPaths</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spotPrices</span><span class="p">(</span><span class="n">NumberOfSteps</span><span class="p">);</span><span class="w"> </span><span class="c1">// Vector to store simulated spot prices for one path.</span>
+<span class="w">        </span><span class="n">spotPrices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">movedSpot</span><span class="p">;</span><span class="w"> </span><span class="c1">// Initialize the first spot price.</span>
+
+<span class="w">        </span><span class="c1">// Generate the spot price path.</span>
+<span class="w">        </span><span class="n">GetGBMSpotPricePath</span><span class="p">(</span><span class="n">spotPrices</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span><span class="w"> </span><span class="n">expiry</span><span class="p">,</span><span class="w"> </span><span class="n">NumberOfSteps</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Calculate the payoff for this path and add it to the running sum.</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">thisPayoff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TheOption</span><span class="p">.</span><span class="n">OptionPayOff</span><span class="p">(</span><span class="n">spotPrices</span><span class="p">);</span>
+<span class="w">        </span><span class="n">runningSum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">thisPayoff</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runningSum</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">NumberOfPaths</span><span class="p">;</span><span class="w"> </span><span class="c1">// Calculate the mean payoff.</span>
+<span class="w">    </span><span class="n">mean</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">expiry</span><span class="p">);</span><span class="w"> </span><span class="c1">// Discount the mean payoff to present value.</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mean</span><span class="p">;</span><span class="w"> </span><span class="c1">// Return the estimated option price.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="SimpleMC.cpp"><em>SimpleMC.cpp</em><a class="anchor-link" href="#SimpleMC.cpp">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">"SimpleMC.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"Random.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span><span class="c1"> // sqrt, exp</span>
+
+<span class="cm">/* SimpleMonteCarlo3 function implementation.</span>
+
+<span class="cm">   Performs a Monte Carlo simulation to estimate the price of an Asian option.</span>
+
+<span class="cm">   Parameters:</span>
+<span class="cm">   - TheOption: A reference to an AsianOption object, which specifies the type of option and how its payoff is calculated.</span>
+<span class="cm">   - Spot: The initial spot price of the underlying asset.</span>
+<span class="cm">   - Vol: The volatility of the underlying asset, indicating the standard deviation of its returns.</span>
+<span class="cm">   - r: The risk-free interest rate, used for discounting the payoff to present value.</span>
+<span class="cm">   - NumberOfPaths: The number of paths to simulate in the Monte Carlo method.</span>
+<span class="cm">   - NumberOfSteps: The number of steps to use in each path for simulating the underlying asset's price.</span>
+
+<span class="cm">   Returns:</span>
+<span class="cm">   - The estimated price of the option as a double. */</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">SimpleMonteCarlo3</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">AsianOption</span><span class="o">&amp;</span><span class="w"> </span><span class="n">TheOption</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">double</span><span class="w"> </span><span class="n">Spot</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">double</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">NumberOfPaths</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">NumberOfSteps</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">expiry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Fixed expiry of 1 year for the option.</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">variance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vol</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Vol</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">expiry</span><span class="p">;</span><span class="w"> </span><span class="c1">// Total variance over the option's life.</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">rootVariance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span><span class="p">);</span><span class="w"> </span><span class="c1">// Standard deviation of returns.</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">itoCorrection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">variance</span><span class="p">;</span><span class="w"> </span><span class="c1">// Correction term for drift due to Ito's lemma.</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">movedSpot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Spot</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">expiry</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">itoCorrection</span><span class="p">);</span><span class="w"> </span><span class="c1">// Adjust initial spot price for drift.</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">runningSum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Accumulator for payoffs across all paths.</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NumberOfPaths</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spotPrices</span><span class="p">(</span><span class="n">NumberOfSteps</span><span class="p">);</span><span class="w"> </span><span class="c1">// Vector to store simulated spot prices for one path.</span>
+<span class="w">        </span><span class="n">spotPrices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">movedSpot</span><span class="p">;</span><span class="w"> </span><span class="c1">// Initialize the first spot price.</span>
+
+<span class="w">        </span><span class="c1">// Generate the spot price path.</span>
+<span class="w">        </span><span class="n">GetGBMSpotPricePath</span><span class="p">(</span><span class="n">spotPrices</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span><span class="w"> </span><span class="n">expiry</span><span class="p">,</span><span class="w"> </span><span class="n">NumberOfSteps</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Calculate the payoff for this path and add it to the running sum.</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">thisPayoff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TheOption</span><span class="p">.</span><span class="n">OptionPayOff</span><span class="p">(</span><span class="n">spotPrices</span><span class="p">);</span>
+<span class="w">        </span><span class="n">runningSum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">thisPayoff</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runningSum</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">NumberOfPaths</span><span class="p">;</span><span class="w"> </span><span class="c1">// Calculate the mean payoff.</span>
+<span class="w">    </span><span class="n">mean</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">expiry</span><span class="p">);</span><span class="w"> </span><span class="c1">// Discount the mean payoff to present value.</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mean</span><span class="p">;</span><span class="w"> </span><span class="c1">// Return the estimated option price.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="AsianOptionMain.cpp"><em>AsianOptionMain.cpp</em><a class="anchor-link" href="#AsianOptionMain.cpp">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">"SimpleMC.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"PayOff.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Define parameters for the option pricing.</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Expiry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Option expiry time in years</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Strike</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span><span class="w">  </span><span class="c1">// Strike price of the option</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Spot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span><span class="w">    </span><span class="c1">// Initial spot price of the underlying asset</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Vol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.30</span><span class="p">;</span><span class="w">   </span><span class="c1">// Volatility of the underlying asset</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span><span class="w">     </span><span class="c1">// Risk-free interest rate</span>
+
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">NumberOfPaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="c1">// Number of paths for Monte Carlo simulation</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">NumberOfSteps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">250</span><span class="p">;</span><span class="w">  </span><span class="c1">// Number of steps in each path</span>
+
+<span class="w">    </span><span class="c1">// Create PayOff objects for call and put options.</span>
+<span class="w">    </span><span class="n">PayOffCall</span><span class="w"> </span><span class="n">callPayOff</span><span class="p">(</span><span class="n">Strike</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PayOffPut</span><span class="w"> </span><span class="n">putPayOff</span><span class="p">(</span><span class="n">Strike</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Create AsianOptionGeometric objects for the call and put options.</span>
+<span class="w">    </span><span class="n">AsianOptionGeometric</span><span class="w"> </span><span class="n">callOption</span><span class="p">(</span><span class="o">&amp;</span><span class="n">callPayOff</span><span class="p">);</span>
+<span class="w">    </span><span class="n">AsianOptionGeometric</span><span class="w"> </span><span class="n">putOption</span><span class="p">(</span><span class="o">&amp;</span><span class="n">putPayOff</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Perform Monte Carlo simulations to estimate the prices of the call and put options.</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">callPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SimpleMonteCarlo3</span><span class="p">(</span><span class="n">callOption</span><span class="p">,</span><span class="w"> </span><span class="n">Spot</span><span class="p">,</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">NumberOfPaths</span><span class="p">,</span><span class="w"> </span><span class="n">NumberOfSteps</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">putPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SimpleMonteCarlo3</span><span class="p">(</span><span class="n">putOption</span><span class="p">,</span><span class="w"> </span><span class="n">Spot</span><span class="p">,</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">NumberOfPaths</span><span class="p">,</span><span class="w"> </span><span class="n">NumberOfSteps</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Output the results.</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"The price of the Asian geometric call option is "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">callPrice</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"The price of the Asian geometric put option is "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">putPrice</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>
