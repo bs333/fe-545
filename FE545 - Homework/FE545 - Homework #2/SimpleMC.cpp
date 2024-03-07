@@ -29,9 +29,8 @@ double SimpleMonteCarlo3(const AsianOption& TheOption,
     double rootVariance = sqrt(variance); // Standard deviation of returns.
     double itoCorrection = -0.5 * variance; // Correction term for drift due to Ito's lemma.
 
-    double movedSpot = Spot * exp(r * expiry + itoCorrection);
-    double thisSpot;
-    double runningSum = 0;
+    double movedSpot = Spot * exp(r * expiry + itoCorrection); // Adjust initial spot price for drift.
+    double runningSum = 0; // Accumulator for payoffs across all paths.
 
     for (unsigned long i = 0; i < NumberOfPaths; i++)
     {
