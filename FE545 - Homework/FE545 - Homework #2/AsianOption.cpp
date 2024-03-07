@@ -12,6 +12,14 @@ AsianOption::AsianOption(PayOff* _pay_off) : pay_off(_pay_off) {}
    Param _pay_off: Pointer to a PayOff object for payoff calculation logic. */
 AsianOptionGeometric::AsianOptionGeometric(PayOff* _pay_off) : AsianOption(_pay_off) {}
 
+/* Calculates the option payoff for a geometric Asian option.
+
+   This method overrides the pure virtual function in the base class.
+
+   It computes the payoff using the geometric mean of spot prices.
+   
+   Param spot_prices: A vector of double values representing the sampled spot prices of the underlying asset.
+   Returns: The calculated option payoff as a double value. */
 double AsianOptionGeometric::OptionPayOff(const std::vector<double>& spot_prices) const 
 {
     return (*pay_off)(spot_prices);
