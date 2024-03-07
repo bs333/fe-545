@@ -31,11 +31,25 @@ class AsianOption
         PayOff* pay_off; // Pay-off class (in this instance call or put), used to calculate the option payoff.
 };
 
+/* AsianOptionGeometric: Derived class from AsianOption to implement payoff calculation
+   for geometric Asian options. */
 class AsianOptionGeometric : public AsianOption 
 {
     public:
+        /* Constructor that initializes the PayOff object for the geometric Asian option.
+        
+        Param _pay_off: Pointer to a PayOff object, encapsulating the payoff calculation logic. */
         AsianOptionGeometric(PayOff* _pay_off);
+
+        /* Destructor. */
         virtual ~AsianOptionGeometric() {}
+
+        /* Overridden function to calculate the payoff for a geometric Asian option.
+        
+        Utilizes the geometric mean of spot prices for calculation.
+        
+        Param spot_prices: A vector of double values representing spot prices of the underlying asset.
+        Returns: The calculated option payoff as a double. */
         virtual double OptionPayOff(const std::vector<double>& spot_prices) const override;
 };
 
