@@ -18,4 +18,13 @@ double SimpleMonteCarlo3(const AsianOption& TheOption,
     double movedSpot = Spot * exp(r * expiry + itoCorrection);
     double thisSpot;
     double runningSum = 0;
+
+    for (unsigned long i = 0; i < NumberOfPaths; i++)
+    {
+        std::vector<double> spotPrices(NumberOfSteps);
+        spotPrices[0] = movedSpot;
+        GetGBMSpotPricePath(spotPrices, r, Vol, expiry, NumberOfSteps);
+        double thisPayoff = TheOption.OptionPayOff(spotPrices);
+        runningSum += thisPayoff;
+    }
 }
