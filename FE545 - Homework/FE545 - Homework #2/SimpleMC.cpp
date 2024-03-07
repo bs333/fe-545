@@ -1,6 +1,7 @@
 #include "SimpleMC.h"
 #include "Random.h"
 #include <vector>
+#include <cmath> // sqrt, exp
 
 /* SimpleMonteCarlo3 function implementation.
 
