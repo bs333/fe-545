@@ -27,4 +27,9 @@ double SimpleMonteCarlo3(const AsianOption& TheOption,
         double thisPayoff = TheOption.OptionPayOff(spotPrices);
         runningSum += thisPayoff;
     }
+
+    double mean = runningSum / NumberOfPaths;
+    mean *= exp(-r * expiry);
+
+    return mean;
 }
