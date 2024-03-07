@@ -71,6 +71,6 @@ class PayOffPut : public PayOff
 
     private:
         double K; // Strike price of the option
-}
+};
 
 #endif
