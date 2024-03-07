@@ -15,4 +15,12 @@ class AsianOption
         PayOff* pay_off; // Pay-off class (in this instance call or put)
 };
 
+class AsianOptionGeometric : public AsianOption 
+{
+    public:
+        AsianOptionGeometric(PayOff* _pay_off);
+        virtual ~AsianOptionGeometric() {}
+        virtual double OptionPayOff(const std::vector<double>& spot_prices) const override;
+};
+
 #endif
