@@ -3,6 +3,8 @@
 #ifndef __Option_Class__Random__
 #define __Option_Class__Random__
 
+#include <vector>
+
 // Generates a random Gaussian number.
 double GetOneGaussianByBoxMuller();
 
