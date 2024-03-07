@@ -1,3 +1,5 @@
+// AsianOption.cpp
+
 #include "AsianOption.h"
 #include <numeric> // For std::accumulate
 #include <cmath>   // For std::exp and std::log
@@ -17,7 +19,7 @@ AsianOptionGeometric::AsianOptionGeometric(PayOff* _pay_off) : AsianOption(_pay_
    This method overrides the pure virtual function in the base class.
 
    It computes the payoff using the geometric mean of spot prices.
-   
+
    Param spot_prices: A vector of double values representing the sampled spot prices of the underlying asset.
    Returns: The calculated option payoff as a double value. */
 double AsianOptionGeometric::OptionPayOff(const std::vector<double>& spot_prices) const 

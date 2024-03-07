@@ -1,3 +1,5 @@
+// PayOff.cpp
+
 #include "PayOff.h"
 #include <cmath> // For std::exp
 #include <numeric> // For std::accumulate

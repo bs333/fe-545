@@ -1,3 +1,5 @@
+// AsianOption.h
+
 #ifndef __Asian_Option__
 #define __Asian_Option__
 
@@ -47,7 +49,7 @@ class AsianOptionGeometric : public AsianOption
         /* Overridden function to calculate the payoff for a geometric Asian option.
         
         Utilizes the geometric mean of spot prices for calculation.
-        
+
         Param spot_prices: A vector of double values representing spot prices of the underlying asset.
         Returns: The calculated option payoff as a double. */
         virtual double OptionPayOff(const std::vector<double>& spot_prices) const override;
