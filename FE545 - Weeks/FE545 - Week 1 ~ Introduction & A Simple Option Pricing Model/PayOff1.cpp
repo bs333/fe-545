@@ -1,7 +1,7 @@
 // PayOff1.cpp
 
 #include "PayOff1.h" // Corrected the include syntax
-#include "MinMax.h" // Include for max function
+#include <algorithm> // Include for std::max function
 
 // Constructor implementation for the PayOff class.
 // Initializes a PayOff object with a strike price and an option type.
@@ -17,11 +17,11 @@ double PayOff::operator()(double Spot) const
     {
         case call:
             // For a call option, the payoff is max(Spot - Strike, 0).
-            return max(Spot - Strike, 0.0);
+            return std::max(Spot - Strike, 0.0);
         
         case put:
             // For a put option, the payoff is max(Strike - Spot, 0).
-            return max(Strike - Spot, 0.0);
+            return std::max(Strike - Spot, 0.0);
         
         default:
             // Throws an error if the option type is unknown.
