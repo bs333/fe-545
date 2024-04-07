@@ -1,5 +1,3 @@
-// TrinomialTree.h
-
 #ifndef TRINOMIALTREE_H
 #define TRINOMIALTREE_H
 
@@ -12,7 +10,7 @@ class SimpleTrinomialTree {
 public:
     SimpleTrinomialTree(double Spot_,
                         const Parameters& r_,
-                        const Parameters& d_,
+                        const Parameters& q_, // Change from d_ to q_
                         double Volatility_,
                         unsigned long Steps_,
                         double Time_);
@@ -25,7 +23,7 @@ protected:
 private:
     double Spot;
     Parameters r;
-    Parameters d;
+    Parameters q; // Change from d to q
     double Volatility;
     unsigned long Steps;
     double Time;

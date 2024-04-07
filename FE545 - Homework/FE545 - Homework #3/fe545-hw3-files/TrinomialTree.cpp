@@ -2,19 +2,19 @@
 #include "TrinomialTree.h"
 #include <cmath>
 
-SimpleTrinomialTree::SimpleTrinomialTree(double Spot_, const Parameters& r_, const Parameters& d_, double Volatility_, unsigned long Steps_, double Time_)
-: Spot(Spot_), r(r_), d(d_), Volatility(Volatility_), Steps(Steps_), Time(Time_), TreeBuilt(false) {
+SimpleTrinomialTree::SimpleTrinomialTree(double Spot_, const Parameters& r_, const Parameters& q_, double Volatility_, unsigned long Steps_, double Time_)
+: Spot(Spot_), r(r_), q(q_), Volatility(Volatility_), Steps(Steps_), Time(Time_), TreeBuilt(false) {
 }
 
 void SimpleTrinomialTree::BuildTree() {
     TreeBuilt = true;
     double dt = Time / Steps;
     double u = exp(Volatility * sqrt(2 * dt));
-    double downFactor = 1 / u;
+    double d = 1 / u;
     // Middle move factor m is implicitly 1
     
-    double pu = pow((exp((r.Integral(0, dt) - d.Integral(0, dt)) * dt / 2) - exp(-Volatility * sqrt(dt / 2))) / (exp(Volatility * sqrt(dt / 2)) - exp(-Volatility * sqrt(dt / 2))), 2);
-    double pd = pow((exp(Volatility * sqrt(dt / 2)) - exp((r.Integral(0, dt) - d.Integral(0, dt)) * dt / 2)) / (exp(Volatility * sqrt(dt / 2)) - exp(-Volatility * sqrt(dt / 2))), 2);
+    double pu = pow((exp((r.Integral(0, dt) - q.Integral(0, dt)) * dt / 2) - exp(-Volatility * sqrt(dt / 2))) / (exp(Volatility * sqrt(dt / 2)) - exp(-Volatility * sqrt(dt / 2))), 2);
+    double pd = pow((exp(Volatility * sqrt(dt / 2)) - exp((r.Integral(0, dt) - q.Integral(0, dt)) * dt / 2)) / (exp(Volatility * sqrt(dt / 2)) - exp(-Volatility * sqrt(dt / 2))), 2);
     double pm = 1 - pu - pd;
 
     TheTree.resize(Steps + 1);
