@@ -10,7 +10,7 @@ void SimpleTrinomialTree::BuildTree() {
     TreeBuilt = true;
     double dt = Time / Steps;
     double u = exp(Volatility * sqrt(2 * dt));
-    double d = 1 / u;
+    double downFactor = 1 / u;
     // Middle move factor m is implicitly 1
     
     double pu = pow((exp((r.Integral(0, dt) - d.Integral(0, dt)) * dt / 2) - exp(-Volatility * sqrt(dt / 2))) / (exp(Volatility * sqrt(dt / 2)) - exp(-Volatility * sqrt(dt / 2))), 2);
