@@ -62,10 +62,13 @@ int main()
     cout << "\nNumber of steps\n";
     cin >> Steps;
 
-    // Create a PayOffCall object
+    // Create a PayOffCall object.
     PayOffCall thePayOff(Strike);
 
-    // Create a risk free rate ParametersConstant
+    // Create a PayOffPut object.
+    PayOffPut putPayOff(Strike);
+
+    // Create a risk free rate ParametersConstant.
     ParametersConstant rParam(r);
 
     // Create a dividend ParametersConstant
