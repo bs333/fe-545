@@ -25,6 +25,8 @@ requires
 #include "TreeEuropean.h"
 #include "BlackScholesFormulas.h"
 //#include "PayOffForward.h"
+#include "TrinomialTree.h"
+
 #include <iostream>
 using namespace std;
 #include <cmath>
