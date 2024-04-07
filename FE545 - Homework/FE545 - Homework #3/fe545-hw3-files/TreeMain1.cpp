@@ -63,7 +63,7 @@ int main()
     cin >> Steps;
 
     // Create a PayOffCall object.
-    PayOffCall thePayOff(Strike);
+    PayOffCall callPayOff(Strike);
 
     // Create a PayOffPut object.
     PayOffPut putPayOff(Strike);
@@ -74,19 +74,28 @@ int main()
     // Create a dividend ParametersConstant
     ParametersConstant dParam(d);
 
-    // Create a TreeEuropean object
+    // Create a TreeEuropean objects.
+    TreeEuropean europeanCallOption(Expiry, callPayOff);
+    TreeEuropean europeanPutOption(Expiry, putPayOff);
     
-    // Create a TreeAmerican object
+    // Create a TreeAmerican objects.
+    TreeAmerican americanCallOption(Expiry, callPayOff);
+    TreeAmerican americanPutOption(Expiry, putPayOff);
 
-    // Create one BinomialTree object
-    
-    double euroPrice = 0.0;
-    // Calculate European Option price
-    
-    double americanPrice = 0.0;
-    // Calculate American Option price
+    // Create TrinomialTree object.
+    SimpleTrinomialTree theTree(Spot, rParam, dParam, Vol, Steps, Expiry);
 
-    cout << "euro price " << euroPrice << " amer price " << americanPrice << "\n";
+    // Retrieve prices.
+    double euroCallPrice = theTree.GetThePrice(europeanCallOption);
+    double euroPutPrice = theTree.GetThePrice(europeanPutOption);
+    double amerCallPrice = theTree.GetThePrice(americanCallOption);
+    double amerPutPrice = theTree.GetThePrice(americanPutOption);
+
+    // Print out prices.
+    std::cout << "European Call Price: " << euroCallPrice << std::endl;
+    std::cout << "European Put Price: " << euroPutPrice << std::endl;
+    std::cout << "American Call Price: " << amerCallPrice << std::endl;
+    std::cout << "American Put Price: " << amerPutPrice << std::endl;
 
     double tmp;
     cin >> tmp;
