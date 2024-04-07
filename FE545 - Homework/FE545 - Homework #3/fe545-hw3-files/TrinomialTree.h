@@ -12,6 +12,7 @@ class SimpleTrinomialTree {
 public:
     SimpleTrinomialTree(double Spot_,
                         const Parameters& r_,
+                        const Parameters& d_
                         double Volatility_,
                         unsigned long Steps_,
                         double Time_);

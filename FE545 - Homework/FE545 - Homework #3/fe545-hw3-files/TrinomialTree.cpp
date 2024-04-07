@@ -38,6 +38,6 @@ void SimpleTrinomialTree::BuildTree() {
     }
 }
 
-double SimpleTrinomialTree::GetThePrice(const TreeProduct& TheProduct) {
+double SimpleTrinomialTree::GetThePrice(const TreeProducts& TheProduct) {
     if (!TreeBuilt) BuildTree();
 }
