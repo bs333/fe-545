@@ -1,9 +1,4 @@
-//
-//  main.cpp
-//  ch8_trees
-//
-//  Created by Steve Yang on 10/12/21.
-//
+// TreeMain1.cpp
 
 /*
 requires
@@ -14,7 +9,6 @@ requires
     Parameters.cpp
     PayOff3.cpp
     PayOffBridge.cpp
-    PayOffForward.cpp
     TreeAmerican.cpp
     TreeEuropean.cpp
     TreeMain.cpp
@@ -24,15 +18,13 @@ requires
 #include "TreeAmerican.h"
 #include "TreeEuropean.h"
 #include "BlackScholesFormulas.h"
-//#include "PayOffForward.h"
 #include "TrinomialTree.h"
 
 #include <iostream>
-using namespace std;
 #include <cmath>
+
 int main()
 {
-
     double Expiry;
     double Strike;
     double Spot;
@@ -98,7 +90,7 @@ int main()
     std::cout << "American Put Price: " << amerPutPrice << std::endl;
 
     double tmp;
-    cin >> tmp;
+    std::cin >> tmp;
 
     return 0;
 }
