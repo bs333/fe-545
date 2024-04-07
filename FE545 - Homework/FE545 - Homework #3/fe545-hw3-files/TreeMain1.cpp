@@ -14,7 +14,6 @@ requires
     TreeMain.cpp
     TreeProducts.cpp
   */
-#include "BinomialTree.h"
 #include "TreeAmerican.h"
 #include "TreeEuropean.h"
 #include "BlackScholesFormulas.h"
@@ -33,26 +32,26 @@ int main()
     double d;
     unsigned long Steps;
 
-    cout << "\nEnter expiry\n";
-    cin >> Expiry;
+    std::cout << "\nEnter expiry\n";
+    std::cin >> Expiry;
 
-    cout << "\nStrike\n";
-    cin >> Strike;
+    std::cout << "\nStrike\n";
+    std::cin >> Strike;
 
-    cout << "\nEnter spot\n";
-    cin >> Spot;
+    std::cout << "\nEnter spot\n";
+    std::cin >> Spot;
 
-    cout << "\nEnter vol\n";
-    cin >> Vol;
+    std::cout << "\nEnter vol\n";
+    std::cin >> Vol;
 
-    cout << "\nr\n";
-    cin >> r;
+    std::cout << "\nr\n";
+    std::cin >> r;
 
-    cout << "\nd\n";
-    cin >> d;
+    std::cout << "\nd\n";
+    std::cin >> d;
 
-    cout << "\nNumber of steps\n";
-    cin >> Steps;
+    std::cout << "\nNumber of steps\n";
+    std::cin >> Steps;
 
     // Create a PayOffCall object.
     PayOffCall callPayOff(Strike);
