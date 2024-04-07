@@ -7667,6 +7667,36 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Note that the American call (put) option always must be worth at least $C(S_t)$ since it can be exercised at <strong>any time prior to the expiry date</strong>. This makes it more interesting and complex to evaluate than a European option which can only be exercised at the expiry date. Since an American option can be exercised at any time prior to the expiry date, <strong>choosing the optimal time</strong> to exercise is a crucial problem.</p>
+<p>$$
+C(S_t, t) = (S_t - K)_+, \; \text{American Call} \tag{10}
+$$</p>
+<p>$$
+P(S_t, t) = (K - S_t)_+, \; \text{American Put} \tag{11}
+$$</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The backward induction algorithm can be derived from the risk-neutrality principle and is the same for put and call options. When applied in the context of a trinomial tree (using the exact same methodology as the binomial tree), we can calculate the option value at interior nodes of the tree by considering it as a <em>weighting of the option value</em> at the <em>future nodes</em>, discounted by one time step.</p>
+<p>Thus, we can calculate the option price at time $n$, $C_n$, as the option price of an up move $p_u C_{n + 1}$ plus the option price of the middle move $p_m C_{n + 1}$ plus the option price of a down move $p_d C_{n + 1}$, discounted by one time step, $e^{-r \Delta t}$. So, at any node on the tree, our backward induction formula in (9) is applied to give us the option prices at any node in the tree.</p>
+<p>The name of the algorithm should now be clear since we only need to value the option at maturity, i.e the <strong>leaf nodes</strong>, and then work our way backwards through the tree calculating option values at all the nodes until we reach the <strong>root</strong> $S_0, C_0$.</p>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>
