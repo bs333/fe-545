@@ -7534,15 +7534,39 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>We will use a trinomial tree model defined by</p>
-<p>$$S(t + \Delta t) = \begin{cases} 
+<p>$$
+S(t + \Delta t) = \begin{cases} 
 
 S(t)u &amp; \text{w.p} &amp; p_u \\
-S(t) &amp; \text{w.p} &amp; 1 - p_u - p_d \\
+S(t) &amp; \text{w.p} &amp; 1 - p_u - p_d \\ \tag{1}
 S(t)d &amp; \text{w.p} &amp; p_d
 
-\end{cases}$$</p>
-<p>$$\mathbb{E}[S(t_{i + 1}) \mid S(t_i)] = e^{r\Delta t}S(t_i)$$</p>
-<p>$$\mathbb{V}[S(t_{i + 1}) \mid S(t_i)] = \Delta t S^2(t_i) \sigma^2 + \mathcal{O}(\Delta t)$$</p>
+\end{cases}
+$$</p>
+<p>$$
+\\[20pt]
+$$</p>
+<p>$$
+\mathbb{E}[S(t_{i + 1}) \mid S(t_i)] = e^{r\Delta t}S(t_i)
+
+\\[5pt] \tag{2}
+
+\mathbb{V}[S(t_{i + 1}) \mid S(t_i)] = \Delta t S^2(t_i) \sigma^2 + \mathcal{O}(\Delta t) 
+$$</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The expectation &amp; variance (<em>Condition 2</em>) are/is a <strong>standard equilibrium</strong> or <strong>no arbitrage condition</strong>: it states that the average return from the asset should be equal to the risk free-return. It can be re-written in the following explicit form:</p>
+<p>$$
+1 - p_u - p_d + p_u u + p_d d = e^{r \Delta t}
+$$</p>
 </div>
 </div>
 </div>
