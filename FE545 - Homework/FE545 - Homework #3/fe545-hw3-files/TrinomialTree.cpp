@@ -40,4 +40,21 @@ void SimpleTrinomialTree::BuildTree() {
 
 double SimpleTrinomialTree::GetThePrice(const TreeProducts& TheProduct) {
     if (!TreeBuilt) BuildTree();
+
+    for (unsigned long i = 0; i <= Steps; ++i) {
+        for (unsigned long j = 0; j < TheTree[Steps][i].size(); ++j) {
+            TheTree[Steps][i][j] = TheProduct.FinalPayOff(TheTree[Steps][i][j]);
+        }
+    }
+
+    // Backward induction to calculate the price at the root
+    for (int i = Steps - 1; i >= 0; --i) {
+        for (unsigned long j = 0; j < TheTree[i].size(); ++j) {
+            // Simplified calculation: adjust based on your model
+            double discountedValue = (pu * TheTree[i + 1][j + 1] + pm * TheTree[i + 1][j] + pd * TheTree[i + 1][j - 1]) * Discounts[i];
+            TheTree[i][j] = discountedValue;
+        }
+    }
+    
+    return TheTree[0][0]; // The price of the option at time 0
 }
