@@ -7620,6 +7620,35 @@ p_m = 1 - p_u - p_d
 
 \tag{6}
 $$</p>
+<p>where $\Delta t$ is the  length of time per step in the tree and is simply time to maturity divided by the number of time steps; $r$ is the risk-free interest rate over this maturity; $\sigma$ is the corresponding volatility of the underlying; $q$ is its corresponding dividend yield.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Note that for $\forall \, [p_u, p_d, p_m] \in (0, 1)$, the following condition on $\Delta t$ has to be satisfied s.t $\Delta t &lt; 2 \cdot \frac{\sigma^2}{(r - q)^2}$. Once the tree of prices has been calculated, the option price is found at each node largely as for the binomial model, by working backwards from the final nodes to the present node $(t_0)$. The difference being that the option value at each non-final node is determined based on the three - as opposed to two - later nodes and their corresponding probabilities.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>European call (put) option is a contract which gives its owner the right to buy (sell) an agreed asset (underlying asset) at the agreed price $K$  (strike price) at the specified time $T$ (maturity time). The methodology when pricing options using a trinomial tree is exactly the same as when using a binomial tree. Once the share price tree is built, and the option payoffs at maturity time $T$ are calculated:</p>
+<p>$$
+C(S_T, T) = (S_T - K)_+, \; \text{European Call} \tag{7}
+$$</p>
+<p>$$
+P(S_T, T) = (K - S_T)_+, \; \text{European Put} \tag{8}
+$$</p>
 </div>
 </div>
 </div>
