@@ -71,4 +71,4 @@ private:
     double ConstantSquare;
 };
 
-#endif /* defined(__ch6_random_number_class__Parameters__) */
+#endif

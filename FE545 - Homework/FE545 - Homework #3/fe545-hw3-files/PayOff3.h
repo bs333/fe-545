@@ -57,4 +57,4 @@ private:
 };
 
 
-#endif /* defined(__ch7_exotics_engine_and_template_pattern__PayOff3__) */
+#endif

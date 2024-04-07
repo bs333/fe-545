@@ -15,4 +15,4 @@ double CumulativeNormal(double x);
 
 double InverseCumulativeNormal(double x);
 
-#endif /* defined(__ch6_random_number_class__Normals__) */
+#endif

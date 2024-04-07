@@ -47,6 +47,4 @@ private:
     MJArray Discounts;
 };
 
-
-
-#endif /* BinomialTree_hpp */
+#endif

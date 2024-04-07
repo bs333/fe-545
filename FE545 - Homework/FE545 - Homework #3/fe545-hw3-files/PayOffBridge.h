@@ -33,4 +33,4 @@ inline double PayOffBridge::operator()(double Spot) const
     return ThePayOffPtr->operator ()(Spot);
 }
 
-#endif /* defined(__ch7_exotics_engine_and_template_pattern__PayOffBridge__) */
+#endif

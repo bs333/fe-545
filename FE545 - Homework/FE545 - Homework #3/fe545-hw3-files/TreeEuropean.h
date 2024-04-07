@@ -32,4 +32,4 @@ private:
 
 };
 
-#endif /* TreeEuropean_hpp */
+#endif

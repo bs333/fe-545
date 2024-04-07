@@ -33,4 +33,4 @@ private:
 };
 
 
-#endif /* TreeAmerican_hpp */
+#endif

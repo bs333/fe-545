@@ -17,7 +17,7 @@ public:
                         unsigned long Steps_,
                         double Time_);
 
-    double GetThePrice(const TreeProduct& TheProduct);
+    double GetThePrice(const TreeProducts& TheProduct);
 
 protected:
     void BuildTree();
@@ -34,4 +34,4 @@ private:
     MJArray Discounts;
 };
 
-#endif /* TRINOMIALTREE_H */
+#endif

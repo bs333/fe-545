@@ -26,4 +26,4 @@ private:
 
 };
 
-#endif /* TreeProduct_hpp */
+#endif

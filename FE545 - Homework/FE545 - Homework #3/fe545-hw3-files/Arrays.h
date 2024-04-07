@@ -96,4 +96,4 @@ inline unsigned long MJArray::size() const
 	return Size;
 }
 
-#endif /* defined(__ch7_exotics_engine_and_template_pattern__Arrays__) */
+#endif // __ch7_exotics_engine_and_template_pattern__Arrays__

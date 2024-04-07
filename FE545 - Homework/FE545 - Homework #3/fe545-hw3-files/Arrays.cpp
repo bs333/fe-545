@@ -244,7 +244,7 @@ double MJArray::min() const
 	{
 		throw("cannot take min of empty array");
 	}
-#endif RANGE_CHECKING
+#endif
     
 	double* tmp = ValuesPtr;
 	double* endTmp = EndPtr;
