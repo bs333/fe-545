@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 Jared Zhou. All rights reserved.
 //
 
-#ifndef __ch7_exotics_engine_and_template_pattern__Arrays__
-#define __ch7_exotics_engine_and_template_pattern__Arrays__
+#ifndef ARRAY_H
+#define ARRAY_H
 
 #ifdef USE_VAL_ARRAY
 #include <valarray>
@@ -73,7 +73,7 @@ inline double MJArray::operator[](unsigned long i) const
 	{
 		throw("Index out of bounds");
 	}
-#endif
+#endif // RANGE_CHECKING
     
 	return ValuesPtr[i];
 }
@@ -96,4 +96,5 @@ inline unsigned long MJArray::size() const
 	return Size;
 }
 
-#endif // __ch7_exotics_engine_and_template_pattern__Arrays__
+#endif // ARRAY_H
+
