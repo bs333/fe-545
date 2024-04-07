@@ -7567,6 +7567,23 @@ $$</p>
 <p>$$
 1 - p_u - p_d + p_u u + p_d d = e^{r \Delta t}
 $$</p>
+<p>Conditions (2, 4) impose two constraints on 4 parameters of the tree. An extra constraint comes from the requirement that the size of the upward jump is the reciprocal of the size of the downward jump, $$ud = 1 \tag{3}$$</p>
+<p>While  this condition is not always used for a trinomial tree construction, it greatly simplifies the complexity of the numerical scheme: it leads to a <strong>recombining tree</strong>, which has the number of nodes growing <em>polynomially</em> with the number of levels rather than <em>exponentially</em>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Given the knowledge of <strong>jump sizes</strong> $u, d$ and the <strong>transition probabilities</strong> $p_u, p_d$, it is now possible to find the value of the underlying asset $S$ for any sequence of price movements. A <em>directed graph</em> with nodes labeled by asset prices and edges connecting nodes s separated by one time step and a single price jump is the desired trinomial pricing tree, see <strong>Figure 1</strong>:</p>
+<figure>
+<img alt="Trinomial Tree" src="./fe545-hw3-figures/fe545-hw3-figure1.png" style="width: 30%; height: auto; display: block; margin-left: auto; margin-right: auto;"/>
+<figcaption style="text-align: center; font-size: larger; margin-top: 10px">Figure 1: Trinomial Tree</figcaption>
+</figure>
 </div>
 </div>
 </div>
