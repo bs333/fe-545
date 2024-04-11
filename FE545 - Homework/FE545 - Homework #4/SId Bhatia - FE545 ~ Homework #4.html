@@ -7534,6 +7534,7 @@ a.anchor-link {
 <p>Let $\tilde{h_i}$ denote the payoff function for exercise at $t_i$ which we now allow to depend on $i$. Let $\tilde{V}_i(x)$ denote the value of the option at $t_i$ given $X_i = x_i$ (the option has not been exercised). We are ultimately interested in $\tilde{V}_0(X_0).$ This value is determined recursively as follows:</p>
 <p>$$\tilde{V}_m(x) = \tilde{h}_m(x) \tag{1}$$</p>
 <p>$$\tilde{V}_{i-1}(x) = \max\{\tilde{h}_{i-1}(x), \; \mathbb{E}[D_{i-1, i}(X_i) \cdot \tilde{V}_i(X_i) \mid X_{i-1} = x]\} \tag{2}$$</p>
+<p>For $i = 1, \dots, m$, we have introduced the notation $D_{i-1, i}(X_i)$ for the <strong>discount factor</strong> from $t_{i-1}$ to $t$. It states that the option value at expiration is given by the payoff function $\tilde{h}_m$; and, at the $(i - 1)$-th exercise date, the option value is the <strong>maximum</strong> of the <em>immediate exercise value</em> and the <em>expected present value of continuing</em>.</p>
 </div>
 </div>
 </div>
