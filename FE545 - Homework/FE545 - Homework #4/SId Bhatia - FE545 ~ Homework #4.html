@@ -7533,8 +7533,52 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Let $\tilde{h_i}$ denote the payoff function for exercise at $t_i$ which we now allow to depend on $i$. Let $\tilde{V}_i(x)$ denote the value of the option at $t_i$ given $X_i = x_i$ (the option has not been exercised). We are ultimately interested in $\tilde{V}_0(X_0).$ This value is determined recursively as follows:</p>
 <p>$$\tilde{V}_m(x) = \tilde{h}_m(x) \tag{1}$$</p>
-<p>$$\tilde{V}_{i-1}(x) = \max\{\tilde{h}_{i-1}(x), \; \mathbb{E}[D_{i-1, i}(X_i) \cdot \tilde{V}_i(X_i) \mid X_{i-1} = x]\} \tag{2}$$</p>
+<p>$$\tilde{V}_{i-1}(x) = \max\{\tilde{h}_{i-1}(x), \; \mathbb{E}^Q[D_{i-1, i}(X_i) \cdot \tilde{V}_i(X_i) \mid X_{i-1} = x]\} \tag{2}$$</p>
 <p>For $i = 1, \dots, m$, we have introduced the notation $D_{i-1, i}(X_i)$ for the <strong>discount factor</strong> from $t_{i-1}$ to $t$. It states that the option value at expiration is given by the payoff function $\tilde{h}_m$; and, at the $(i - 1)$-th exercise date, the option value is the <strong>maximum</strong> of the <em>immediate exercise value</em> and the <em>expected present value of continuing</em>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>As its name suggests, the random tree method is based on simulating a tree of paths of the underlying <strong>Markov Chain</strong> $X_0, X_1, \dots, X_m$. Fix a branching parameter $b \geq 2$. From the initial state $X_0$, simulate $b$ independent successor states  $X_1^1, \dots, X_1^B$ all having the <strong>law</strong> of $X_1$. For each $X_1^i$, simulate $b$ independent successors $X_1^{i1}, \dots X_1^{ib}$ from the <strong>conditional law</strong> of $X_2$ given $X_1 = X_1^i$. From each $X_2^{i_1 i_2}$, generate $b$ successors $X_3^{i_1 i_2 1}, \dots X_3^{i_1 i_2 b}$, and so on. We denote a <em>generic node</em> in the tree at time step $i$ by $X_i^{j_1 j_2 \dots j_i}$. The superscript indicates that this node is reached by following the $j$-th branch out of $X_0$, the $j_2$-th branch out of the next node, and so on.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>At all terminal nodes, set the estimator equal to the payoff at that node:</p>
+<p>$$
+\hat{v}_m^{j_1 \dots j_m} = h_m(X_m^{j_1 \dots j_m}) \tag{3}.
+$$</p>
+<p>At node $j_1, j_2, \dots j_i$ at time step $i$, and for each $k = 1, \dots, b$, set</p>
+<p>$$
+\hat{v}_{ik}^{j_1 j_2 \dots j_i} = \begin{cases}
+
+h_i (X_i^{j_1 j_2 \dots j_i}) &amp; \; \text{if} \; \frac{1}{b} \sum_{j = 1}^b \hat{v}_{i + 1}^{j_1 j_2 \dots j_i j} \leq h_i (X_i^{j_1 j_2 \dots j_i}); \tag{4} \\
+
+\hat{v}_{i + 1}^{j_1 j_2 \dots j_i k} &amp; \; \text{otherwise}
+
+\end{cases}
+$$</p>
+<p>Then set</p>
+<p>$$
+\hat{v}_i^{j_1 \dots j_i} = \frac{1}{b} \sum_{k=1}^b \hat{v}_{i,k}^{j_1 \dots j_i} \tag{5}
+$$</p>
+<p>Working backward, we then set</p>
+<p>$$
+\hat{V}_i^{j_1 \dots j_i} = \max{\left( h_i(X_i^{j_1 \dots j_1}), \frac{1}{b} \sum_{k=1}^b \hat{V}_{i,k}^{j_1 \dots j_i})\right) } \tag{6}
+$$</p>
+<p>The high estimator of the option price at the current time and state is $\hat{v}_0$.</p>
 </div>
 </div>
 </div>
