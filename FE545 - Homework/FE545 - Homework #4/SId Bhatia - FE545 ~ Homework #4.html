@@ -7545,7 +7545,23 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h5 id="High-Estimator">High Estimator<a class="anchor-link" href="#High-Estimator">¶</a></h5>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>As its name suggests, the random tree method is based on simulating a tree of paths of the underlying <strong>Markov Chain</strong> $X_0, X_1, \dots, X_m$. Fix a branching parameter $b \geq 2$. From the initial state $X_0$, simulate $b$ independent successor states  $X_1^1, \dots, X_1^B$ all having the <strong>law</strong> of $X_1$. For each $X_1^i$, simulate $b$ independent successors $X_1^{i1}, \dots X_1^{ib}$ from the <strong>conditional law</strong> of $X_2$ given $X_1 = X_1^i$. From each $X_2^{i_1 i_2}$, generate $b$ successors $X_3^{i_1 i_2 1}, \dots X_3^{i_1 i_2 b}$, and so on. We denote a <em>generic node</em> in the tree at time step $i$ by $X_i^{j_1 j_2 \dots j_i}$. The superscript indicates that this node is reached by following the $j$-th branch out of $X_0$, the $j_2$-th branch out of the next node, and so on.</p>
+<p>Although it is not essential that the branching parameter remain fixed across time steps, this is a convenient simplification in discussing the method. From the random tree method we define high and low estimators at each node by backward induction.</p>
+<p>We use <strong>formulation 2</strong>. Thus, $\hat{h}_i$ is the discounted payoff function at the $i$-th exercise date, and the discounted option value satisfies $\hat{V}_m = \hat{h}_m$,</p>
+<p>$$
+\tilde{V}_i(x) = \max{\left(\tilde{h}_i(x), \mathbb{E}^Q[\tilde{V}_{i+1}(X_{i+1}) \mid X_i = x]\right)}, \; i = 1, \dots, m - 1 \tag{3}
+$$</p>
 </div>
 </div>
 </div>
