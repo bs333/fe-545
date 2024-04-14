@@ -7583,6 +7583,37 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The low estimator is defined as follows. At all terminal nodes, set the estimator equal to the payoff at that node:</p>
+<p>$$
+\hat{v}_m^{j_1 j_2 \dots j_m} = h_m (X_m^{j_1 j_2 \dots j_m}) \tag{7}
+$$</p>
+<p>At each node $j_1, j_2, \dots, j_i$ at time step $i$, and for each $k = 1, \dots b$, set</p>
+<p>$$
+\hat{v}_{ik}^{j_1 j_2 \dots j_i} = \begin{cases}
+
+h_i (X_i^{j_1 j_2 \dots j_i}) &amp; \; \text{if} \; \frac{1}{b - 1} \sum_{j=1; j \neq k}^b \hat{v}_{i+1}^{j_1 j_2 \dots j_i j} \leq h_i(X_i^{j_1 j_2 \dots j_i}); \tag{8}
+
+\\
+
+\hat{v}_{i+1}^{j_1 j_2 \dots j_i k} &amp; \; \text{otherwise}
+
+\end{cases}
+$$</p>
+<p>We then set</p>
+<p>$$
+\hat{v}_i^{j_1 j_2 \dots j_i} = \frac{1}{b} \sum_{k=1}^b \hat{v}_{ik}^{j_1 j_2 \dots j_i}. \tag{9}
+$$</p>
+<p>The low estimator of the option price at the current time and state is $\hat{v}_o$.</p>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>
