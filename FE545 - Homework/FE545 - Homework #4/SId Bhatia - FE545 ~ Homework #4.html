@@ -7810,6 +7810,59 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="Problem-2">Problem 2<a class="anchor-link" href="#Problem-2">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The Black-Scholes formula is sufficiently complicated that there is no analytic inverse function, and therefore this inversion must be carried out numerically. Our objective is to use Newton-Ralphson method and the programming techniques to design a solver in a reusable fashion.</p>
+<p>When we have a well-behaved function with an analytic derivative, then Newton-Ralphson can be used to find inverse values of the Black-Scholes formula. The idea of Newton-Raphson is that we pretend the function is linear and look for the solution where the linear function predicts it to be. Thus, we take a standing point $x_0$, and approximate $f$ by</p>
+<p>$$
+g_0(x) = f(x_0) + f(x-x_0)f'(x_0) \cdot \epsilon \tag{14}
+$$</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>We have that $g_0(x) = 0$ iff</p>
+<p>$$
+x = \frac{y - f(x_0)}{f'(x_0)} + x_0 \tag{15}
+$$</p>
+<p>We therefore take this value as our new guess $x_1$. We repeat until we find that $f(x_n)$ is within $\epsilon$ of $y$.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>In this problem, you will use a <strong>pointer to a member function</strong> which is similar in syntax and idea to a function pointer, but it is restricted to methods of a single class. The difference in syntax is that the class name with a :: must be attached to the * when it is declared.</p>
+<p>Thus, to declare function pointers called $\texttt{Value}$ and $\texttt{Derivative}$ which must point to methods of the class $T$, we have $\texttt{double (T::*Derivative)(double) double}$ and $\texttt{double (T::*Value) (double) double}$. The function $\texttt{Value(Derivative)}$  is a const member function which takes in a double as an argument and outputs a double as return value. If we have an object of class $T$ called $\texttt{TheObject}$ and $y$ is a double, then the function pointed to can be invoked by either $\texttt{The Object.*Value(y)}$ or $\texttt{TheObject.*Derivative(y)}$.</p>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>
