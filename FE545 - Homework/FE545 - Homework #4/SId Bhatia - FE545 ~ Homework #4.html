@@ -7531,20 +7531,6 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Let $\tilde{h_i}$ denote the payoff function for exercise at $t_i$ which we now allow to depend on $i$. Let $\tilde{V}_i(x)$ denote the value of the option at $t_i$ given $X_i = x_i$ (the option has not been exercised). We are ultimately interested in $\tilde{V}_0(X_0).$ This value is determined recursively as follows:</p>
-<p>$$\tilde{V}_m(x) = \tilde{h}_m(x) \tag{1}$$</p>
-<p>$$\tilde{V}_{i-1}(x) = \max\{\tilde{h}_{i-1}(x), \; \mathbb{E}^Q[D_{i-1, i}(X_i) \cdot \tilde{V}_i(X_i) \mid X_{i-1} = x]\} \tag{2}$$</p>
-<p>For $i = 1, \dots, m$, we have introduced the notation $D_{i-1, i}(X_i)$ for the <strong>discount factor</strong> from $t_{i-1}$ to $t$. It states that the option value at expiration is given by the payoff function $\tilde{h}_m$; and, at the $(i - 1)$-th exercise date, the option value is the <strong>maximum</strong> of the <em>immediate exercise value</em> and the <em>expected present value of continuing</em>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h5 id="High-Estimator">High Estimator<a class="anchor-link" href="#High-Estimator">¶</a></h5>
 </div>
 </div>
@@ -7676,13 +7662,13 @@ $$</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>The low estimator is defined as follows. At all terminal nodes, set the estimator equal to the payoff at that node:</p>
 <p>$$
-\hat{v}_m^{j_1 j_2 \dots j_m} = h_m (X_m^{j_1 j_2 \dots j_m}) \tag{7}
+\hat{v}_m^{j_1 j_2 \dots j_m} = h_m (X_m^{j_1 j_2 \dots j_m}) \tag{11}
 $$</p>
 <p>At each node $j_1, j_2, \dots, j_i$ at time step $i$, and for each $k = 1, \dots b$, set</p>
 <p>$$
 \hat{v}_{ik}^{j_1 j_2 \dots j_i} = \begin{cases}
 
-h_i (X_i^{j_1 j_2 \dots j_i}) &amp; \; \text{if} \; \frac{1}{b - 1} \sum_{j=1; j \neq k}^b \hat{v}_{i+1}^{j_1 j_2 \dots j_i j} \leq h_i(X_i^{j_1 j_2 \dots j_i}); \tag{8}
+h_i (X_i^{j_1 j_2 \dots j_i}) &amp; \; \text{if} \; \frac{1}{b - 1} \sum_{j=1; j \neq k}^b \hat{v}_{i+1}^{j_1 j_2 \dots j_i j} \leq h_i(X_i^{j_1 j_2 \dots j_i}); \tag{12}
 
 \\
 
@@ -7692,7 +7678,7 @@ h_i (X_i^{j_1 j_2 \dots j_i}) &amp; \; \text{if} \; \frac{1}{b - 1} \sum_{j=1; j
 $$</p>
 <p>We then set</p>
 <p>$$
-\hat{v}_i^{j_1 j_2 \dots j_i} = \frac{1}{b} \sum_{k=1}^b \hat{v}_{ik}^{j_1 j_2 \dots j_i}. \tag{9}
+\hat{v}_i^{j_1 j_2 \dots j_i} = \frac{1}{b} \sum_{k=1}^b \hat{v}_{ik}^{j_1 j_2 \dots j_i}. \tag{13}
 $$</p>
 <p>The low estimator of the option price at the current time and state is $\hat{v}_o$.</p>
 </div>
@@ -7705,22 +7691,121 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<figure>
-<img alt="Trinomial Tree" src="./fe545-hw4-figures/fe545-hw4-figure1.png" style="width: 30%; height: auto; display: block; margin-left: auto; margin-right: auto;"/>
-<figcaption style="text-align: center; font-size: larger; margin-top: 10px">Figure 2: High Estimator K = 50</figcaption>
-</figure>
+<p>Assume a random tree for pricing American call option is given in Figure 1. Please use the random tree in Figure 1 to calculate the high and low estimate of the American call option price with a <strong>strike price $K = 50$</strong>. Please show your steps for both the high estimator and low estimator.</p>
+<p>Note: You do not need to write C++ program to get the price, but rather manually calculating the estimators following the algorithms introduced in class.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Assume a random tree for pricing American call option is given in Figure 1. Please use the random tree in Figure 1 to calculate the high and low estimate of the American call option price with a <strong>strike price $K = 50$</strong>. Please show your steps for both the high estimator and low estimator.</p>
-<p>Note: You do not need to write C++ program to get the price, but rather manually calculating the estimators following the algorithms introduced in class.</p>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">compute_terminal_nodes</span><span class="p">(</span><span class="n">S0</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="c1"># Time delta per step</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">T</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="c1"># Compute up and down factors</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">))</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">u</span>
+    <span class="c1"># Compute risk-neutral probability</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span> <span class="o">-</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">u</span> <span class="o">-</span> <span class="n">d</span><span class="p">)</span>
+    
+    <span class="c1"># Initialize terminal nodes list</span>
+    <span class="n">terminal_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># Calculate terminal nodes using the binomial model formula</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># The stock price at the ith terminal node</span>
+        <span class="n">ST</span> <span class="o">=</span> <span class="n">S0</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">d</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span><span class="p">))</span>
+        <span class="c1"># Payoff of a call option at the ith terminal node</span>
+        <span class="n">payoff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ST</span> <span class="o">-</span> <span class="n">K</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">terminal_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">payoff</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">terminal_nodes</span>
+
+<span class="c1"># Test parameters</span>
+<span class="n">S0</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># Current stock price</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">50</span>    <span class="c1"># Strike price</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mf">0.05</span>  <span class="c1"># Risk-free interest rate</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c1"># Volatility</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">1</span>     <span class="c1"># Time to expiration in years</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>     <span class="c1"># Number of time steps</span>
+
+<span class="c1"># Compute terminal nodes</span>
+<span class="n">terminal_nodes</span> <span class="o">=</span> <span class="n">compute_terminal_nodes</span><span class="p">(</span><span class="n">S0</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">terminal_nodes</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[0, 0, 6.120045122283379, 20.699122904025828]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate the value at a non-terminal node</span>
+<span class="k">def</span> <span class="nf">calc_node_value</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">terminal_payoffs</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">is_high_estimator</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">terminal_payoffs</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)]</span>
+    
+    <span class="c1"># Discount factor for one period</span>
+    <span class="n">discount_factor</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
+    
+    <span class="n">successors</span> <span class="o">=</span> <span class="p">[</span><span class="n">calc_node_value</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">j</span><span class="p">,),</span> <span class="n">terminal_payoffs</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">is_high_estimator</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+    <span class="n">h_i</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">S0</span> <span class="o">*</span> <span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">path</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="o">-</span> <span class="n">K</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">is_high_estimator</span><span class="p">:</span>
+        <span class="c1"># High estimator does not need discounting as we are taking expectations</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">h_i</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">successors</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># Low estimator</span>
+        <span class="c1"># Low estimator should be discounted back one period</span>
+        <span class="n">discounted_successors</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="n">discount_factor</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">successors</span><span class="p">]</span>
+        <span class="n">continuation_value</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">discounted_successors</span><span class="p">)</span> <span class="o">-</span> <span class="nb">max</span><span class="p">(</span><span class="n">discounted_successors</span><span class="p">)</span>
+        <span class="n">continuation_value</span> <span class="o">/=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">successors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">h_i</span><span class="p">,</span> <span class="n">continuation_value</span><span class="p">)</span>
+    
+<span class="c1"># Calculate high estimator</span>
+<span class="n">high_estimator</span> <span class="o">=</span> <span class="n">calc_node_value</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(),</span> <span class="n">terminal_nodes</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">T</span><span class="o">/</span><span class="n">n</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Calculate low estimator</span>
+<span class="n">low_estimator</span> <span class="o">=</span> <span class="n">calc_node_value</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(),</span> <span class="n">terminal_nodes</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">T</span><span class="o">/</span><span class="n">n</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="p">(</span><span class="n">low_estimator</span><span class="p">,</span> <span class="n">high_estimator</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>(19.689614767666036, 28.02434217801937)</pre>
+</div>
 </div>
 </div>
 </div>
