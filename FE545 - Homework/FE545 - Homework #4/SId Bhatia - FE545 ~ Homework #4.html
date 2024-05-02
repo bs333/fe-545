@@ -7863,6 +7863,99 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Use the classes introduced in Lecture 09 and finish the main.cpp file for European Call Option with the following parameters:</p>
+<ul>
+<li>$T = 1$</li>
+<li>$S_0 = 50$</li>
+<li>$K = 50$</li>
+<li>$r = 0.05$</li>
+<li>$q = 0.08$ (Dividend)</li>
+<li>$P = 4.23$ (Option Price)</li>
+<li>$\sigma_g = 0.23$ (Vol Estimate)</li>
+<li>$\text{Tolerance} = 0.0001$</li>
+</ul>
+<p>Use the $\texttt{NewtonRalphso}$ class from the sample as the starting point and find implied volatility for the given option price of 4.23.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// main.cpp</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"BSCallClass.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"BlackScholesFormulas.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"NewtonRaphso.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"BSCallTwo.h"</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Expiry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Strike</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">50.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Spot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">50.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.08</span><span class="p">;</span><span class="w"> </span><span class="c1">// This is the continuous dividend yield</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">4.23</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">start</span><span class="p">;</span><span class="w"> </span><span class="c1">// This will be the starting guess for the implied volatility</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Enter start volatility guess: "</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">start</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">tolerance</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Enter Tolerance for Newton-Raphson: "</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">tolerance</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// Create function object for a vanilla call with all given parameters</span>
+<span class="w">    </span><span class="n">BSCallTwo</span><span class="w"> </span><span class="n">theCall</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">Expiry</span><span class="p">,</span><span class="w"> </span><span class="n">Spot</span><span class="p">,</span><span class="w"> </span><span class="n">Strike</span><span class="p">);</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// Use Newton-Raphson method to find the implied volatility</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewtonRaphson</span><span class="o">&lt;</span><span class="n">BSCallTwo</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">BSCallTwo</span><span class="o">::</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">BSCallTwo</span><span class="o">::</span><span class="n">Vega</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Price</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">tolerance</span><span class="p">,</span><span class="w"> </span><span class="n">theCall</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">Using Newton-Raphson method:</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Implied vol is: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// Check the price using BlackScholesCall with the implied vol</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">PriceTwo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BlackScholesCall</span><span class="p">(</span><span class="n">Spot</span><span class="p">,</span><span class="w"> </span><span class="n">Strike</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">vol</span><span class="p">,</span><span class="w"> </span><span class="n">Expiry</span><span class="p">);</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Option price by implied volatility is: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PriceTwo</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="n">Enter</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="n">volatility</span><span class="w"> </span><span class="n">guess</span><span class="o">:</span><span class="w"> </span><span class="mf">0.23</span>
+<span class="n">Enter</span><span class="w"> </span><span class="n">Tolerance</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Newton</span><span class="o">-</span><span class="n">Raphson</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0001</span>
+
+<span class="n">Using</span><span class="w"> </span><span class="n">Newton</span><span class="o">-</span><span class="n">Raphson</span><span class="w"> </span><span class="n">method</span><span class="o">:</span>
+<span class="n">Implied</span><span class="w"> </span><span class="n">vol</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.262937</span>
+<span class="n">Option</span><span class="w"> </span><span class="n">price</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">implied</span><span class="w"> </span><span class="n">volatility</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">4.23005</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>
