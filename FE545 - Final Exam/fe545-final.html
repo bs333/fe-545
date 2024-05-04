@@ -7518,7 +7518,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Tree-based methods can be used for obtaining option prices, which are especially popular for pricing American options. Binomial, trinomial, and random tree methods can be used to price many options, including plain vanilla options, and also exotic options such as barrier options, digital options, Asian options, and others.</p>
+<p>Tree-based methods can be used for obtaining option prices, which are especially popular for pricing American options. Binomial (BAPM/BOPM), trinomial (TAPM/TOPM), and random tree methods (RTM) can be used to price many options, including plain vanilla options, and also exotic options such as barrier options, digital options, Asian options, and others.</p>
 <p>We will be pricing American options using TAPM/RT methods via design principles in C++.</p>
 <p>Pricing a derivative security entails calculating the <strong>expected value of its payoff</strong>. This reduces, in principle, to a problem of <em>numerical integration</em>; but in practice this calculation is often difficult for high-dimensional pricing problems.</p>
 <p>The binomial options pricing model (BOPM) approach has been widely used since it is able to handle a variety of conditions for which other models cannot easily be applied. This mainly since the BOPM is based on the description of an underlying instrument over a period of time rather than a single point. Therefore, it can be used to price Americans that are exercisable $\forall \, t \in [0, T]$.</p>
@@ -7549,6 +7549,20 @@ a.anchor-link {
 C = e^{-r T} \mathbb{E}^Q[f(S_T)] \tag{1}
 $$</p>
 <p>where $f(S_T)$ is the payoff function at maturity $T$. For a call, $f(S_T) = (S_T - K)_+$. $r$ denotes the risk-free rate, $K$ is the strike, and $S_r$ is the <strong>terminal stock price</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>For Americans, the dilemma is as following:</p>
+<p>$$
+C = \max_{\tau}\{e^{-r \tau} (S_{\tau} - K)_+\} \tag{2}
+$$</p>
 </div>
 </div>
 </div>
