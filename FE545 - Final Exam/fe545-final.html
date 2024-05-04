@@ -7573,8 +7573,8 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>We discretize this problem where $\tau \in \mathcal{P}$, with $\mathcal{P} = \{t_0, t_1, \dots, t_d\}$ such that $t_0 &lt; t_1 &lt; \dots &lt; t_d = T$. For an American option, we simulate a path of asset prices $(S_0, S_1, \dots, S_T)$. Let $i \in \mathbb{Z}^+$ correspond to intermediate times $t_i$ in $\mathcal{P}$.</p>
-<p>Then, compute a <em>discounted</em> option value corresponding to this path and average said results over many sims. Now, how do we compute such a corresponding value?</p>
+<p>We discretize this problem where $\tau \in \mathcal{P}$, with $\mathcal{P} = \{t_0, t_1, \dots, t_d\}$ such that $t_0 &lt; t_1 &lt; \dots &lt; t_d = T$. For an American option, we simulate a path of asset prices $(S_0, S_1, \dots, S_T)$. Let $i \in \{1, \dots, d\}$ correspond to intermediate times $t_i$ in $\mathcal{P}$.</p>
+<p>To calculate the <strong>discounted value</strong> of an option for a given simulation path, you first determine the payoff for each path at maturity and then average these results over many simulations. This process helps estimate the expected payoff under stochastic conditions. How do we compute the value along each path?</p>
 </div>
 </div>
 </div>
@@ -7585,13 +7585,13 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Broadie</strong> and <strong>Glasserman</strong> ('97) developed a stochastic RTM to estimate lower/upper bounds for Americans. Let $\tilde{h}_i$ denote the <strong>payoff function</strong> for exercise at $t_i$, depending on $i$. Let $\tilde{V}_i(x)$ denote the value of the option at $t_i$ given $X_i = x_i$ (option has <strong>not been exercised</strong>).</p>
-<p>Why do we care? Well, we want have an (vested) interest in $\tilde{V}_0 (X_0)$, which is recursively defined as follows:</p>
+<p><strong>Broadie</strong> and <strong>Glasserman</strong> (1997) developed a stochastic method to estimate lower and upper bounds for American options. Let $\tilde{h}_i$ denote the <strong>payoff function</strong> for exercise at $t_i$, depending on $i$. Let $\tilde{V}_i(x)$ denote the value of the option at $t_i$ given $X_i = x_i$ (assuming the option has <strong>not been exercised</strong>).</p>
+<p>Why do we care? We have an interest in $\tilde{V}_0 (X_0)$, which is recursively defined as follows:</p>
 <p>$$
 \tilde{V}_m (x) = \tilde{h}_m (x) \tag{3}
 $$</p>
 <p>$$
-\tilde{V}_{i-1}(x) = \max{\{\tilde{h}_{i-1}(x), \, \mathbb{E}[D_{i-1, i}(X_i) \tilde{V}_i (X_i) \mid X_{i-1} = x]\}} \tag{4}
+\tilde{V}_{i-1}(x) = \max\{\tilde{h}_{i-1}(x), \, \mathbb{E}[D_{i-1, i}(X_i) \tilde{V}_i (X_i) \mid X_{i-1} = x]\} \tag{4}
 $$</p>
 </div>
 </div>
