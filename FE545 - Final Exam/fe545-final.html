@@ -7546,7 +7546,7 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>The typical simulation to Euro pricing is use sims to $\approx$ the expectation:</p>
 <p>$$
-C = e^{-r T} \mathbb{E}^Q[f(S_T)] \tag{1}
+P = e^{-r T} \mathbb{E}^Q[f(S_T)] \tag{1}
 $$</p>
 <p>where $f(S_T)$ is the payoff function at maturity $T$. For a call, $f(S_T) = (S_T - K)_+$. $r$ denotes the risk-free rate, $K$ is the strike, and $S_r$ is the <strong>terminal stock price</strong>.</p>
 </div>
@@ -7561,8 +7561,19 @@ $$</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>For Americans, the dilemma is as follows:</p>
 <p>$$
-C = \max_{\tau}\{e^{-r \tau} (S_{\tau} - K)_+\} \tag{2}
+P = \max_{\tau}\{e^{-r \tau} (S_{\tau} - K)_+\}, \; \forall \tau \leq T \tag{2}
 $$</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>We discretize this problem where $\tau \in \mathcal{P}$, with $\mathcal{P} = \{t_0, t_1, \dots, t_d\}$ such that $t_0 &lt; t_1 &lt; \dots &lt; t_d = T$.</p>
 </div>
 </div>
 </div>
