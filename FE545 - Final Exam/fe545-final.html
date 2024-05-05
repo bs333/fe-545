@@ -7591,8 +7591,9 @@ $$</p>
 \tilde{V}_m (x) = \tilde{h}_m (x) \tag{3}
 $$</p>
 <p>$$
-\tilde{V}_{i-1}(x) = \max\{\tilde{h}_{i-1}(x), \, \mathbb{E}[D_{i-1, i}(X_i) \tilde{V}_i (X_i) \mid X_{i-1} = x]\} \tag{4}
+\tilde{V}_{i-1}(x) = \max\{\tilde{h}_{i-1}(x), \, \mathbb{E}[D_{i-1, i} \tilde{V}_i (X_i) \mid X_{i-1} = x]\} \tag{4}
 $$</p>
+<p>For each $i$ from 1 to $m-1$, we introduce the notation $D_{i-1, i}$ for the discount factor from time $t_{i-1}$ to $t_i$. This ensures that at the $(i-1)$-th exercise date, the option value (OV) is the maximum of the <strong>immediate exercise value</strong> and the <strong>expected present value</strong> of continuing. At expiration, the option value is given by the payoff function $\tilde{h}_m$.</p>
 </div>
 </div>
 </div>
