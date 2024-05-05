@@ -7641,6 +7641,11 @@ h_i (X_i^{j_1 j_2 \dots j_i}) &amp; \text{if} \; \frac{1}{b} \sum_{j=1}^b \hat{v
 \end{cases}
 $$</p>
 <p>This evaluates whether to exercise the option now or <em>continue</em> to the next step, based on expected values calculated from future possible states.</p>
+<p>Next, the estimator for each node is computed as the average of the estimators from each possible path branching from this node:</p>
+<p>$$
+\hat{v}_i^{j_1 \dots j_i} = \frac{1}{b} \sum_{k=1}^b \hat{v}_{i,k}^{j_1 \dots j_i} \tag{7}
+$$</p>
+<p>This calculation effectively averages the outcomes from all <em>potential future states</em> accessible from the current node, <strong>weighting each equally</strong>. This average is crucial for determining the expected value of the option at each node, considering all possible future paths.</p>
 </div>
 </div>
 </div>
