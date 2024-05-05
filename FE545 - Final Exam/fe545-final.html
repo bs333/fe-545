@@ -7612,6 +7612,39 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>At all terminal nodes of the tree, the estimator is set equal to the payoff at that node:</p>
+<p>$$
+\hat{v}_m^{j_1 \dots j_m} = h_m (X_m^{j_1 \dots j_m}) \tag{5}
+$$</p>
+<p>This means that at the final time step, the value of the option is <strong>exactly equal</strong> to its <strong>payoff</strong>, as there are no subsequent decisions to make.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>At each node and at each branching step within the tree, the decision is calculated based on the <strong>potential future values</strong> versus the <strong>immediate payoff</strong>:</p>
+<p>$$
+\hat{v}_{ik}^{j_1 j_2 \dots j_i} = \begin{cases}
+h_i (X_i^{j_1 j_2 \dots j_i}) &amp; \text{if} \; \frac{1}{b} \sum_{j=1}^b \hat{v}_{i+1}^{j_1 j_2 \dots j_i j} \leq h_i (X_i^{j_1 j_2 \dots j_i}) \\
+\hat{v}_{i+1}^{j_1 j_2 \dots j_i k} &amp; \text{otherwise} \tag{6}
+\end{cases}
+$$</p>
+<p>This evaluates whether to exercise the option now or <em>continue</em> to the next step, based on expected values calculated from future possible states.</p>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>
