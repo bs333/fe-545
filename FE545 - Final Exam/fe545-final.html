@@ -7650,6 +7650,26 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Working backward through the tree, the value at each node is determined by comparing the <strong>immediate payoff</strong> if the option were exercised at that node, versus the <em>expected value</em> if the option were not exercised but instead <strong>continued</strong>:</p>
+<p>$$
+\hat{V}_i^{j_1 \dots j_i} = \max{\left(h_i (X_i^{j_1 \dots j_i}), \frac{1}{b} \sum_{k=1}^b \hat{V}_{i,k}^{j_1 \dots j_i} \right)} \tag{8}
+$$</p>
+<p>This equation takes the maximum of two values:</p>
+<ol>
+<li>$h_i (X_i^{j_1 \dots j_i})$: the payoff if the option is <strong>exercised</strong> at this node.</li>
+<li>The <em>average</em> of the estimated values of continuing to the next time step (<strong>first raw moment/expectation</strong>), summed over all $b$ branches leading out of the current node.</li>
+</ol>
+<p>This decision rule ensures that the option is exercised at the time step and state that provides the maximum expected value, capturing the essence of the American option's flexibility to choose the optimal exercise time.</p>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>
