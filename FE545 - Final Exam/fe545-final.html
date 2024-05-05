@@ -7670,6 +7670,65 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The <strong>highest estimator</strong> of the option price at the current time and state is represented by $\hat{v}_0$. This value is the result of the recursive calculation process applied from the terminal nodes back to the root of the decision tree, considering all possible decisions at each step.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The <strong>low estimator</strong> is also set equal to the payoff at the terminal nodes:</p>
+<p>$$
+\hat{v}_m^{j_1 \dots j_m} = h_m (X_m^{j_1 \dots j_m}) \tag{9}
+$$</p>
+<p>This ensures that at the final time step, the value of the option is directly its intrinsic value, given there are no subsequent choices.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>At each non-terminal node, the estimator is determined by comparing the <strong>immediate payoff</strong> to a <em>modified average</em> of the outcomes from the other paths:</p>
+<p>$$
+\hat{v}_{ik}^{j_1 j_2 \dots j_i} = \begin{cases}
+h_i (X_i^{j_1 j_2 \dots j_i}) &amp; \text{if} \; \frac{1}{b-1} \sum_{j=1; j \neq k}^b \hat{v}_{i+1}^{j_1 j_2 \dots j_i j} \leq h_i (X_i^{j_1 j_2 \dots j_i}) \\
+\hat{v}_{i+1}^{j_1 j_2 \dots j_i k} &amp; \text{otherwise} \tag{10}
+\end{cases}
+$$</p>
+<p>Here, we exclude the <strong>current branch's continuation value</strong> from the averaging process to ensure a <em>conservative estimation</em>, minimizing the potential overestimation from positive outliers in the continuation path.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Finally, the low estimator for each node is calculated as the <em>average</em> (first raw moment/discrete expectation) of all branch estimators at that node:</p>
+<p>$$
+\hat{v}_i^{j_1 \dots j_i} = \frac{1}{b} \sum_{k=1}^b \hat{v}_{ik}^{j_1 \dots j_i} \tag{11}
+$$</p>
+<p>This averages the adjusted estimators, incorporating a balanced view from all potential paths stemming from the node, using the conservative estimates derived from the modified decision rule.</p>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>
