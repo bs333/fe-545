@@ -7786,7 +7786,26 @@ $$</p>
 <p>$$
 \frac{\mathop{dS_t}}{S_t} = (r - \delta)dt + \sigma dW_t \tag{12}
 $$</p>
-<p>where $W_t \sim \mathcal{N}(0, t)$.</p>
+<p>where $W_t \sim \mathcal{N}(\mu = 0, \sigma^2 = t)$.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>In <em>Eq. (12)</em>, $r$ represents the risk-free interest rate, $\delta$ is the dividend rate, and $\sigma &gt; 0$ is the volatility (standard deviation) parameter. Under the <strong>risk-neutral measure</strong>, the logarithmic return $\ln\left(\frac{S_t}{S_{t-1}}\right)$ is distributed as:</p>
+<p>$$
+\ln\left(\frac{S_t}{S_{t-1}}\right) \sim \mathcal{N}\left(\mu = \left(r - \delta - \frac{\sigma^2}{2}\right) \cdot (t_i - t_{i-1}), \sigma^2 = \sigma^2 \cdot (t_i - t_{i-1})\right)
+$$</p>
+<p>Given $S_{i-1}$, the price at the next time step $S_i$ can be simulated using:</p>
+<p>$$
+S_i = S_{i-1} \cdot \exp\left\{\left(r - \delta - \frac{\sigma^2}{2}\right)(t_i - t_{i-1}) + \sigma \sqrt{t_i - t_{i-1}}Z\right\}
+$$</p>
+<p>where $Z \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. The model parameters were selected to highlight the potential value of the option's <strong>early exercise feature</strong>.</p>
 </div>
 </div>
 </div>
