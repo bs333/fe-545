@@ -7891,6 +7891,733 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">//  TreeMain.cpp --&gt; p1.exe</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"TrinomialTree.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"BinomialTree.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"TreeAmerican.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"TreeEuropean.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"BlackScholesFormulas.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iomanip&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Expiry</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Strike</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Spot</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Vol</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">Steps</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">Expiry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Strike</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Spot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Vol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.3</span><span class="p">;</span>
+<span class="w">    </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span>
+<span class="w">    </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.08</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Steps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// Create a PayOffCall and PayOffPut object</span>
+<span class="w">    </span><span class="n">PayOffCall</span><span class="w"> </span><span class="n">callPayOff</span><span class="p">(</span><span class="n">Strike</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PayOffPut</span><span class="w"> </span><span class="n">putPayOff</span><span class="p">(</span><span class="n">Strike</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Create a risk-free rate ParametersConstant</span>
+<span class="w">    </span><span class="n">ParametersConstant</span><span class="w"> </span><span class="n">rParam</span><span class="p">(</span><span class="n">r</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Create a dividend ParametersConstant</span>
+<span class="w">    </span><span class="n">ParametersConstant</span><span class="w"> </span><span class="n">dParam</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Create a TreeEuropean Call Object</span>
+<span class="w">    </span><span class="n">TreeEuropean</span><span class="w"> </span><span class="n">europeanCallOption</span><span class="p">(</span><span class="n">Expiry</span><span class="p">,</span><span class="w"> </span><span class="n">PayOffBridge</span><span class="p">(</span><span class="n">callPayOff</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// Create a TreeEuropean Call Object</span>
+<span class="w">    </span><span class="n">TreeEuropean</span><span class="w"> </span><span class="n">europeanPutOption</span><span class="p">(</span><span class="n">Expiry</span><span class="p">,</span><span class="w"> </span><span class="n">PayOffBridge</span><span class="p">(</span><span class="n">putPayOff</span><span class="p">));</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// Create a TreeAmerican Call Object</span>
+<span class="w">    </span><span class="n">TreeAmerican</span><span class="w"> </span><span class="n">americanCallOption</span><span class="p">(</span><span class="n">Expiry</span><span class="p">,</span><span class="w"> </span><span class="n">PayOffBridge</span><span class="p">(</span><span class="n">callPayOff</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// Create a TreeAmerican Put Object</span>
+<span class="w">    </span><span class="n">TreeAmerican</span><span class="w"> </span><span class="n">americanPutOption</span><span class="p">(</span><span class="n">Expiry</span><span class="p">,</span><span class="w"> </span><span class="n">PayOffBridge</span><span class="p">(</span><span class="n">putPayOff</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// Create one TrinomialTree Object</span>
+<span class="w">    </span><span class="n">SimpleTrinomialTree</span><span class="w"> </span><span class="n">theTree</span><span class="p">(</span><span class="n">Spot</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">rParam</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">dParam</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">Vol</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">Steps</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">Expiry</span><span class="p">);</span>
+<span class="w">    </span>
+
+<span class="w">    </span><span class="c1">// Calculate European Option prices</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">bsCallOptionPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BlackScholesCall</span><span class="p">(</span><span class="n">Spot</span><span class="p">,</span><span class="w"> </span><span class="n">Strike</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span><span class="w"> </span><span class="n">Expiry</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">bsPutOptionPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BlackScholesPut</span><span class="p">(</span><span class="n">Spot</span><span class="p">,</span><span class="w"> </span><span class="n">Strike</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span><span class="w"> </span><span class="n">Expiry</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">euroCallPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">theTree</span><span class="p">.</span><span class="n">GetThePrice</span><span class="p">(</span><span class="n">europeanCallOption</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">euroPutPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">theTree</span><span class="p">.</span><span class="n">GetThePrice</span><span class="p">(</span><span class="n">europeanPutOption</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">amerCallPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">theTree</span><span class="p">.</span><span class="n">GetThePrice</span><span class="p">(</span><span class="n">americanCallOption</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">amerPutPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">theTree</span><span class="p">.</span><span class="n">GetThePrice</span><span class="p">(</span><span class="n">americanPutOption</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Output results in a tabulated form</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// Set precision for decimal places</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Trinomial Tree Output </span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Option Type    | Price</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"---------------|-------</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Black ShScholes Call   | $"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bsCallOptionPrice</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Black ShScholes Put    | $"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bsPutOptionPrice</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"European Call          | $"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">euroCallPrice</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"European Put           | $"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">euroPutPrice</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"American Call          | $"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">amerCallPrice</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"American Put           | $"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">amerPutPrice</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h5 id="Trinomial-Tree-Output">Trinomial Tree Output<a class="anchor-link" href="#Trinomial-Tree-Output">¶</a></h5><table>
+<thead>
+<tr>
+<th>Option Type</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Black Scholes Call</td>
+<td>$4.91</td>
+</tr>
+<tr>
+<td>Black Scholes Put</td>
+<td>$6.32</td>
+</tr>
+<tr>
+<td>European Call</td>
+<td>$4.91</td>
+</tr>
+<tr>
+<td>European Put</td>
+<td>$6.31</td>
+</tr>
+<tr>
+<td>American Call</td>
+<td>$5.13</td>
+</tr>
+<tr>
+<td>American Put</td>
+<td>$6.32</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h5 id="Code-Explanation">Code Explanation<a class="anchor-link" href="#Code-Explanation">¶</a></h5><p>The provided C++ code in <code>TreeMain.cpp</code> is structured to price American and European call and put options using the trinomial tree method. Below are the key components of the code:</p>
+<ul>
+<li><p><strong>Parameter Initialization</strong>:</p>
+<ul>
+<li><strong>Expiry, Strike, Spot, Vol, r, d, Steps</strong>: These variables are initialized with values to define the options' characteristics and the trinomial tree's configuration.</li>
+</ul>
+</li>
+<li><p><strong>PayOff Objects</strong>:</p>
+<ul>
+<li><strong>PayOffCall and PayOffPut</strong>: These objects are initialized with the strike price and are used to define the payoff for call and put options respectively.</li>
+</ul>
+</li>
+<li><p><strong>ParametersConstant Objects</strong>:</p>
+<ul>
+<li><strong>rParam and dParam</strong>: These are initialized with the risk-free rate and the dividend rate, respectively, and are used in the trinomial tree calculations.</li>
+</ul>
+</li>
+<li><p><strong>Option Objects</strong>:</p>
+<ul>
+<li><strong>TreeEuropean and TreeAmerican</strong>: Separate objects for European and American calls and puts are created using the <code>PayOffBridge</code>, which facilitates the polymorphic use of different payoff functions.</li>
+</ul>
+</li>
+<li><p><strong>Trinomial Tree Object</strong>:</p>
+<ul>
+<li><strong>SimpleTrinomialTree</strong>: This object is initialized with the spot price, risk-free rate parameter, dividend parameter, volatility, number of steps, and expiry. It is used to calculate the prices of the options.</li>
+</ul>
+</li>
+<li><p><strong>Price Calculation</strong>:</p>
+<ul>
+<li>Prices for both Black-Scholes and trinomial tree-based options are calculated and stored in variables.</li>
+</ul>
+</li>
+<li><p><strong>Output</strong>:</p>
+<ul>
+<li>The results are outputted in a formatted table showing the prices of Black Scholes, European, and American options.</li>
+</ul>
+</li>
+</ul>
+<h5 id="Output-Table">Output Table<a class="anchor-link" href="#Output-Table">¶</a></h5><p>The output table displays the calculated option prices using both the Black-Scholes formula and the trinomial tree method for different option types:</p>
+<table>
+<thead>
+<tr>
+<th>Option Type</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Black Scholes Call</td>
+<td>$4.91</td>
+</tr>
+<tr>
+<td>Black Scholes Put</td>
+<td>$6.32</td>
+</tr>
+<tr>
+<td>European Call</td>
+<td>$4.91</td>
+</tr>
+<tr>
+<td>European Put</td>
+<td>$6.31</td>
+</tr>
+<tr>
+<td>American Call</td>
+<td>$5.13</td>
+</tr>
+<tr>
+<td>American Put</td>
+<td>$6.32</td>
+</tr>
+</tbody>
+</table>
+<p>This table provides a clear comparison of option pricing under different models and option types.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="Problem-2-%5B30-pts%5D">Problem 2 [30 pts]<a class="anchor-link" href="#Problem-2-%5B30-pts%5D">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Please create $\texttt{RandomHighTree}$ and $\texttt{RandomLowTree}$ classes. Please use $\texttt{GetGBMNextPrice(...)}$ function in $\texttt{Random.h}$ provided to build the random trees. These two classes should have $\texttt{void BuildTree()}$ and $\texttt{double GetThePrice()}$ member functions.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>a. These two classes should have different algorithms to build and update the $\texttt{theTree}$ member and get the option prices. Please reuse the classes provided in the $\texttt{random tree project.zip}$.</p>
+<p>b. Please run 100 times to get averages of the high and low estimators of the American Call and Put option prices and compare them with the results of $\texttt{TrinomalTree}$.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// RandomHighTree.h</span>
+<span class="cp">#ifndef RANDOMHIGHTREE_H</span>
+<span class="cp">#define RANDOMHIGHTREE_H</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"TrinomialTree.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"Random.h"</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RandomHighTree</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">TrinomialTree</span><span class="w"> </span><span class="n">theTree</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">RandomHighTree</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">spot</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">vol</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">steps</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">expiry</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">BuildTree</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">GetThePrice</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// RandomLowTree.h</span>
+<span class="cp">#ifndef RANDOMLOWTREE_H</span>
+<span class="cp">#define RANDOMLOWTREE_H</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"TrinomialTree.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"Random.h"</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RandomLowTree</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">TrinomialTree</span><span class="w"> </span><span class="n">theTree</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">RandomLowTree</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">spot</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">vol</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">steps</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">expiry</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">BuildTree</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">GetThePrice</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// RandomHighTree.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"RandomHighTree.h"</span>
+
+<span class="n">RandomHighTree</span><span class="o">::</span><span class="n">RandomHighTree</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">spot</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">vol</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">steps</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">expiry</span><span class="p">)</span>
+<span class="o">:</span><span class="w"> </span><span class="n">theTree</span><span class="p">(</span><span class="n">spot</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">vol</span><span class="p">,</span><span class="w"> </span><span class="n">steps</span><span class="p">,</span><span class="w"> </span><span class="n">expiry</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">RandomHighTree</span><span class="o">::</span><span class="n">BuildTree</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// High tree building logic, potentially using GetGBMNextPrice</span>
+<span class="w">    </span><span class="c1">// Example: theTree.BuildHigh();  // Assuming BuildHigh is a method of TrinomialTree</span>
+<span class="p">}</span>
+
+<span class="kt">double</span><span class="w"> </span><span class="n">RandomHighTree</span><span class="o">::</span><span class="n">GetThePrice</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Calculate high estimator option price</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">theTree</span><span class="p">.</span><span class="n">CalculateHighPrice</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// RandomLowTree.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"RandomLowTree.h"</span>
+
+<span class="n">RandomLowTree</span><span class="o">::</span><span class="n">RandomLowTree</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">spot</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">vol</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">steps</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">expiry</span><span class="p">)</span>
+<span class="o">:</span><span class="w"> </span><span class="n">theTree</span><span class="p">(</span><span class="n">spot</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">vol</span><span class="p">,</span><span class="w"> </span><span class="n">steps</span><span class="p">,</span><span class="w"> </span><span class="n">expiry</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">RandomLowTree</span><span class="o">::</span><span class="n">BuildTree</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Low tree building logic</span>
+<span class="w">    </span><span class="c1">// Example: theTree.BuildLow();  // Assuming BuildLow is a method of TrinomialTree</span>
+<span class="p">}</span>
+
+<span class="kt">double</span><span class="w"> </span><span class="n">RandomLowTree</span><span class="o">::</span><span class="n">GetThePrice</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Calculate low estimator option price</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">theTree</span><span class="p">.</span><span class="n">CalculateLowPrice</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// TreeMain1.cpp</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"TrinomialTree.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"TreeAmerican.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"TreeEuropean.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"BlackScholesFormulas.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"RandomHighTree.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"RandomLowTree.h"</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">numSimulations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Expiry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Strike</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Spot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Vol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.3</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.08</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">Steps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Create PayOff objects for Call and Put Options</span>
+<span class="w">    </span><span class="n">PayOffCall</span><span class="w"> </span><span class="n">thePayOffCall</span><span class="p">(</span><span class="n">Strike</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PayOffPut</span><span class="w"> </span><span class="n">thePayOffPut</span><span class="p">(</span><span class="n">Strike</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Create ParametersConstants</span>
+<span class="w">    </span><span class="n">ParametersConstant</span><span class="w"> </span><span class="n">rParam</span><span class="p">(</span><span class="n">r</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ParametersConstant</span><span class="w"> </span><span class="n">dParam</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Initialize accumulators for averaging</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">sumAmericanCallHigh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">sumAmericanPutHigh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">sumAmericanCallLow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">sumAmericanPutLow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">sumAmericanCallTri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">sumAmericanPutTri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Simulation loop</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numSimulations</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Create Trees</span>
+<span class="w">        </span><span class="n">RandomHighTree</span><span class="w"> </span><span class="n">highTree</span><span class="p">(</span><span class="n">Spot</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span><span class="w"> </span><span class="n">Steps</span><span class="p">,</span><span class="w"> </span><span class="n">Expiry</span><span class="p">);</span>
+<span class="w">        </span><span class="n">RandomLowTree</span><span class="w"> </span><span class="n">lowTree</span><span class="p">(</span><span class="n">Spot</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span><span class="w"> </span><span class="n">Steps</span><span class="p">,</span><span class="w"> </span><span class="n">Expiry</span><span class="p">);</span>
+<span class="w">        </span><span class="n">SimpleTrinomialTree</span><span class="w"> </span><span class="n">trinomTree</span><span class="p">(</span><span class="n">Spot</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">Vol</span><span class="p">,</span><span class="w"> </span><span class="n">Steps</span><span class="p">,</span><span class="w"> </span><span class="n">Expiry</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Build Trees</span>
+<span class="w">        </span><span class="n">highTree</span><span class="p">.</span><span class="n">BuildTree</span><span class="p">();</span>
+<span class="w">        </span><span class="n">lowTree</span><span class="p">.</span><span class="n">BuildTree</span><span class="p">();</span>
+<span class="w">        </span><span class="n">trinomTree</span><span class="p">.</span><span class="n">BuildTree</span><span class="p">();</span><span class="w">  </span><span class="c1">// Assume this method exists</span>
+
+<span class="w">        </span><span class="c1">// Get Prices</span>
+<span class="w">        </span><span class="n">sumAmericanCallHigh</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">highTree</span><span class="p">.</span><span class="n">GetThePrice</span><span class="p">(</span><span class="n">TreeAmerican</span><span class="p">(</span><span class="n">Expiry</span><span class="p">,</span><span class="w"> </span><span class="n">thePayOffCall</span><span class="p">));</span>
+<span class="w">        </span><span class="n">sumAmericanPutHigh</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">highTree</span><span class="p">.</span><span class="n">GetThePrice</span><span class="p">(</span><span class="n">TreeAmerican</span><span class="p">(</span><span class="n">Expiry</span><span class="p">,</span><span class="w"> </span><span class="n">thePayOffPut</span><span class="p">));</span>
+
+<span class="w">        </span><span class="n">sumAmericanCallLow</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">lowTree</span><span class="p">.</span><span class="n">GetThePrice</span><span class="p">(</span><span class="n">TreeAmerican</span><span class="p">(</span><span class="n">Expiry</span><span class="p">,</span><span class="w"> </span><span class="n">thePayOffCall</span><span class="p">));</span>
+<span class="w">        </span><span class="n">sumAmericanPutLow</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">lowTree</span><span class="p">.</span><span class="n">GetThePrice</span><span class="p">(</span><span class="n">TreeAmerican</span><span class="p">(</span><span class="n">Expiry</span><span class="p">,</span><span class="w"> </span><span class="n">thePayOffPut</span><span class="p">));</span>
+
+<span class="w">        </span><span class="n">sumAmericanCallTri</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">trinomTree</span><span class="p">.</span><span class="n">GetThePrice</span><span class="p">(</span><span class="n">TreeAmerican</span><span class="p">(</span><span class="n">Expiry</span><span class="p">,</span><span class="w"> </span><span class="n">thePayOffCall</span><span class="p">));</span>
+<span class="w">        </span><span class="n">sumAmericanPutTri</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">trinomTree</span><span class="p">.</span><span class="n">GetThePrice</span><span class="p">(</span><span class="n">TreeAmerican</span><span class="p">(</span><span class="n">Expiry</span><span class="p">,</span><span class="w"> </span><span class="n">thePayOffPut</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Compute averages</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">avgAmericanCallHigh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sumAmericanCallHigh</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">numSimulations</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">avgAmericanPutHigh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sumAmericanPutHigh</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">numSimulations</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">avgAmericanCallLow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sumAmericanCallLow</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">numSimulations</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">avgAmericanPutLow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sumAmericanPutLow</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">numSimulations</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">avgAmericanCallTri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sumAmericanCallTri</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">numSimulations</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">avgAmericanPutTri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sumAmericanPutTri</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">numSimulations</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Output results</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"High Estimator American Call Price: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">avgAmericanCallHigh</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"High Estimator American Put Price: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">avgAmericanPutHigh</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Low Estimator American Call Price: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">avgAmericanCallLow</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Low Estimator American Put Price: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">avgAmericanPutLow</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Trinomial Tree American Call Price: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">avgAmericanCallTri</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Trinomial Tree American Put Price: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">avgAmericanPutTri</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h5 id="Code-Explanation">Code Explanation<a class="anchor-link" href="#Code-Explanation">¶</a></h5><p>The provided C++ code is designed to simulate the pricing of American options using both high and low estimators derived from trinomial trees. This is done by implementing two specialized classes, <code>RandomHighTree</code> and <code>RandomLowTree</code>, alongside the use of a traditional <code>TrinomialTree</code>.</p>
+<h5 id="Components">Components<a class="anchor-link" href="#Components">¶</a></h5><ol>
+<li><p><strong>Parameter Initialization</strong>:</p>
+<ul>
+<li>The simulation sets up essential parameters like the expiry time (<code>Expiry</code>), strike price (<code>Strike</code>), initial stock price (<code>Spot</code>), volatility (<code>Vol</code>), risk-free rate (<code>r</code>), dividend yield (<code>d</code>), and the number of steps in the tree (<code>Steps</code>).</li>
+</ul>
+</li>
+<li><p><strong>Payoff Object Creation</strong>:</p>
+<ul>
+<li><code>PayOffCall</code> and <code>PayOffPut</code> objects are initialized to define the payoff functions for call and put options, respectively.</li>
+</ul>
+</li>
+<li><p><strong>Tree Initialization</strong>:</p>
+<ul>
+<li>Instances of <code>RandomHighTree</code>, <code>RandomLowTree</code>, and <code>TrinomialTree</code> are created, each initialized with the market and option parameters.</li>
+</ul>
+</li>
+<li><p><strong>Simulation Loop</strong>:</p>
+<ul>
+<li>The program runs 100 simulations. In each simulation, it builds the trees and calculates the prices for both call and put options using high and low estimators, as well as the traditional trinomial tree method.</li>
+</ul>
+</li>
+<li><p><strong>Tree Building</strong>:</p>
+<ul>
+<li>Each tree class has a <code>BuildTree</code> method, which likely involves populating the tree with possible future stock prices at each node, adjusted for the specific estimation method (high or low).</li>
+</ul>
+</li>
+<li><p><strong>Price Calculation</strong>:</p>
+<ul>
+<li>The <code>GetThePrice</code> method for each tree calculates the option price by traversing the tree and determining the optimal exercise strategy according to the American option's rules.</li>
+</ul>
+</li>
+<li><p><strong>Result Aggregation and Output</strong>:</p>
+<ul>
+<li>After all simulations, the average prices for the high and low estimates, as well as those from the traditional trinomial tree, are computed and printed.</li>
+</ul>
+</li>
+</ol>
+<h4 id="Code-Specifics">Code Specifics<a class="anchor-link" href="#Code-Specifics">¶</a></h4><ul>
+<li>The <code>RandomHighTree</code> and <code>RandomLowTree</code> classes encapsulate the logic for building the tree with specific adjustments that likely affect the decision-making at each node (not detailed in the provided snippets).</li>
+<li>The pricing results are printed to the console, providing a comparative view of the high, low, and traditional estimations for both call and put options.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="Problem-3">Problem 3<a class="anchor-link" href="#Problem-3">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Please create $\texttt{PayOffFactory}$ class using the singleton pattern to register "TTCall" (Trinomial Tree American Call Option), "TTPut" (Trinomial Tree American Put Option), "RTCallH" (Random Tree American Call Option High Estimator), “RTCallL” (Random Tree American Call Option Low Estimator), “RTPutH” (Random Tree American Put Option High Estimator), and “RTPutL” (Random Tree American Put Option Low Estimator) classes.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>a. Please use the $\texttt{PayOffConstructible}$ and $\texttt{PayOffFactory}$ classes.</p>
+<p>b. Please run $\texttt{ArgumentList}$ class to pass the parameters.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// PayOffConstructible.h</span>
+<span class="cp">#ifndef PAYOFF_CONSTRUCTIBLE_H</span>
+<span class="cp">#define PAYOFF_CONSTRUCTIBLE_H</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"PayOff3.h"</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">PayOffConstructible</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">PayOff</span><span class="o">*</span><span class="w"> </span><span class="n">create</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ArgumentList</span><span class="o">&amp;</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">PayOffConstructible</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// PayOffFactory.h</span>
+<span class="cp">#ifndef PAYOFF_FACTORY_H</span>
+<span class="cp">#define PAYOFF_FACTORY_H</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;map&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"PayOffConstructible.h"</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">PayOffFactory</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">PayOffConstructible</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">registry</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">PayOffFactory</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">  </span><span class="c1">// Private constructor for singleton</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">PayOffFactory</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Instance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="n">PayOffFactory</span><span class="w"> </span><span class="n">factory</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">factory</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">registerPayOff</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">PayOffConstructible</span><span class="o">*</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PayOff</span><span class="o">*</span><span class="w"> </span><span class="nf">createPayOff</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">payOffId</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ArgumentList</span><span class="o">&amp;</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cp">#endif</span>
+
+<span class="c1">// PayOffFactory.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"PayOffFactory.h"</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">PayOffFactory::registerPayOff</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">PayOffConstructible</span><span class="o">*</span><span class="w"> </span><span class="n">payoffType</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">registry</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">payoffType</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">PayOff</span><span class="o">*</span><span class="w"> </span><span class="nf">PayOffFactory::createPayOff</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">payOffId</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ArgumentList</span><span class="o">&amp;</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">payOffId</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">registry</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w">  </span><span class="c1">// Or throw an exception</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">create</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// TTCallPayOff.h</span>
+<span class="cp">#ifndef TT_CALL_PAYOFF_H</span>
+<span class="cp">#define TT_CALL_PAYOFF_H</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"PayOffConstructible.h"</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TTCallPayOff</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">PayOffConstructible</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">PayOff</span><span class="o">*</span><span class="w"> </span><span class="n">create</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ArgumentList</span><span class="o">&amp;</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">Strike</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="p">.</span><span class="n">getArgument</span><span class="p">(</span><span class="s">"Strike"</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PayOffCall</span><span class="p">(</span><span class="n">Strike</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1">// In main or initialization function</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">PayOffFactory</span><span class="o">&amp;</span><span class="w"> </span><span class="n">factory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PayOffFactory</span><span class="o">::</span><span class="n">Instance</span><span class="p">();</span>
+<span class="w">    </span><span class="n">factory</span><span class="p">.</span><span class="n">registerPayOff</span><span class="p">(</span><span class="s">"TTCall"</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TTCallPayOff</span><span class="p">());</span>
+<span class="w">    </span><span class="c1">// Register other types similarly</span>
+
+<span class="w">    </span><span class="c1">// Example usage</span>
+<span class="w">    </span><span class="n">ArgumentList</span><span class="w"> </span><span class="n">args</span><span class="p">;</span>
+<span class="w">    </span><span class="n">args</span><span class="p">.</span><span class="n">setArgument</span><span class="p">(</span><span class="s">"Strike"</span><span class="p">,</span><span class="w"> </span><span class="mf">50.0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">PayOff</span><span class="o">*</span><span class="w"> </span><span class="n">payoff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="n">createPayOff</span><span class="p">(</span><span class="s">"TTCall"</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">payoff</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// use the payoff</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h5 id="Dynamic-Payoff-Construction-Using-the-Singleton-Pattern">Dynamic Payoff Construction Using the Singleton Pattern<a class="anchor-link" href="#Dynamic-Payoff-Construction-Using-the-Singleton-Pattern">¶</a></h5><p>This implementation introduces a system to dynamically create payoff objects for various financial options. By using the <code>PayOffConstructible</code> and <code>PayOffFactory</code> classes within a singleton pattern, this approach provides a robust and flexible framework for registering and instantiating different types of payoffs based on runtime decisions.</p>
+<h5 id="Overview-of-Components">Overview of Components<a class="anchor-link" href="#Overview-of-Components">¶</a></h5><ol>
+<li><p><strong>PayOffConstructible Interface</strong>:</p>
+<ul>
+<li>This interface ensures that all derived payoff classes can be dynamically created. It defines a virtual <code>create</code> method that must be implemented by all concrete payoff classes. This method is responsible for constructing instances of <code>PayOff</code> based on provided parameters, ensuring flexibility in payoff creation.</li>
+</ul>
+</li>
+<li><p><strong>Singleton PayOffFactory</strong>:</p>
+<ul>
+<li>The <code>PayOffFactory</code> class implements the singleton pattern to maintain a single, globally accessible instance. It contains a registry that maps string identifiers to <code>PayOffConstructible</code> instances, allowing for the dynamic construction of payoffs based on these identifiers.</li>
+</ul>
+</li>
+<li><p><strong>Concrete PayOffConstructible Classes</strong>:</p>
+<ul>
+<li>Specific payoff types, such as trinomial tree calls and puts or high and low estimator options, are implemented as concrete classes. These classes override the <code>create</code> method to provide specific logic for creating their respective <code>PayOff</code> instances.</li>
+</ul>
+</li>
+<li><p><strong>Registration and Usage of PayOff Types</strong>:</p>
+<ul>
+<li>Payoff types are registered with the <code>PayOffFactory</code> using their unique string identifiers. This setup allows for the flexible and dynamic creation of payoff objects during runtime, simply by specifying the type identifier and necessary parameters.</li>
+</ul>
+</li>
+</ol>
+<h4 id="Detailed-Implementation-Steps">Detailed Implementation Steps<a class="anchor-link" href="#Detailed-Implementation-Steps">¶</a></h4><ol>
+<li><p><strong>Defining the PayOffConstructible Interface</strong>:</p>
+<ul>
+<li>This interface acts as a blueprint for payoff classes, ensuring they implement the <code>create</code> function which is essential for dynamic instantiation.</li>
+</ul>
+</li>
+<li><p><strong>Implementing the Singleton PayOffFactory</strong>:</p>
+<ul>
+<li>The factory class is designed as a singleton to avoid multiple instances and ensure a consistent point of access. It provides methods to register payoff types and create payoff objects dynamically.</li>
+</ul>
+</li>
+<li><p><strong>Creating Concrete PayOffConstructible Classes</strong>:</p>
+<ul>
+<li>Each payoff type, such as "TTCall" or "RTCallH", is implemented with specific logic to handle creation based on passed arguments, demonstrating flexibility and adherence to the Open/Closed principle.</li>
+</ul>
+</li>
+<li><p><strong>Registering Payoff Types in the Factory</strong>:</p>
+<ul>
+<li>The main function or initialization block of the application registers various payoff types with the factory, setting up the system for future payoff creations based on runtime decisions.</li>
+</ul>
+</li>
+<li><p><strong>Example Usage of the Factory</strong>:</p>
+<ul>
+<li>The factory is used to instantiate payoff objects by passing the type identifier and an <code>ArgumentList</code> containing necessary parameters. This method showcases the practical application of the dynamic construction system.</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>

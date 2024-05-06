@@ -1,9 +1,4 @@
-//
 //  main.cpp
-//
-//  Created by Steve Yang on 04/22/24.
-//
-//
 
 #include "TrinomialTree.h"
 #include "BinomialTree.h"
