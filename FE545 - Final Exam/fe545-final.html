@@ -7810,6 +7810,33 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="Synthesis">Synthesis<a class="anchor-link" href="#Synthesis">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The stochastic tree simulation method can be summarized in the following steps:</p>
+<ol>
+<li><strong>Tree Construction</strong>: For each simulation run, construct a random tree starting with the initial asset price $S_0$ as defined in <em>Eq. (14)</em>. Each node at each time step $ m$ branches into $b$ potential future states.</li>
+<li><strong>Estimator Calculation</strong>: For each tree, compute the high and low estimates of the option price using <em>Eq. 6</em> for the high estimator and <em>Eq. 10</em> for the low estimator.</li>
+<li><strong>Averaging the Results</strong>: Calculate the arithmetic average of the high and low estimators across all $n$ simulation runs to determine the final estimators. This average represents the expected value (first raw moment) of the option's price based on the simulation.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>
