@@ -24,7 +24,7 @@ add_executable(ch8_tree_trinomial
         TreeAmerican.h
         TreeEuropean.cpp
         TreeEuropean.h
-        TreeMain1.cpp
+        TreeMain.cpp
         TreeProducts.cpp
         TreeProducts.h
         TrinomialTree.cpp
