@@ -1,6 +1,6 @@
 ## FE545 - Design, Patterns, & Derivatives Pricing
 
-This repository contains all the materials, including code, assignments, and notes, for the course FE580 - Object-Oriented Financial Engineering.
+This repository contains all the materials, including code, assignments, and notes, for the course FE545 - Design, Patterns, & Derivatives Pricing.
 
 ### Course Description
 
